@@ -45,12 +45,12 @@ es decir contiene los modelos con los datos en memoria
 # ==============================
 # Funciones de consulta
 # ==============================
-def getFirtsLastBooks(catalog):
+def getFirtsLastMovies(catalog):
     """
     Retorna los primeros valores de la primera y ultima llave.
     """
     (firts,last)= ct.getFirstLastBooks(catalog)
-    data_firts=[firts['title'], firts['release_date'],firts['vote_average'],firts['vote_count'],firts['original_language']]
+    data_first=[first['title'], first['release_date'],first['vote_average'],first['vote_count'],first['original_language']]
     data_last=[last['title'], last['release_date'],last['vote_average'],last['vote_count'],last['original_language']]
     return (data_firts,data_last)
 

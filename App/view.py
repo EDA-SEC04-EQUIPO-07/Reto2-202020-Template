@@ -66,9 +66,10 @@ while True:
         print('caragndo datos...')
         print('La longitud de los datos es:\"',str("el parametro de la longitud") ,'\"') #terminar con la funcion de carga
     elif inputs[0]== '2':
-        (firts,last)=controller.getFirstLastMovies(catalog)
+        (firts,last)=controller.getFirstLastMovies('catalog')#El nombre del catalogo con details
+        #dar la longitud de la lista
         print('La primera pelicula es: ')
-        for data in firts:
+        for data in first:
             print(data)
         print('La ultima pelicula es: ')
         for data in last:
