@@ -44,3 +44,18 @@ recae sobre el controlador.
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+
+
+
+
+
+# ___________________________________________________
+#  Funciones generales implementadas
+# ___________________________________________________
+def getFirstLastMovies(catalog):
+    """
+    Retorna el primer y ultimo libro de la lista.
+    """
+    first_movie=lt.firstElement(catalog)
+    last_movie=lt.lastElement(catalog)
+    return (first_movie, last_movie)

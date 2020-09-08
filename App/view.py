@@ -37,8 +37,8 @@ operación seleccionada.
 # ___________________________________________________
 #  Ruta a los archivos
 # ___________________________________________________
-
-
+file_cast='Data\Movies\MoviesCastingRaw-small.csv'
+file_details='Data\Movies\SmallMoviesDetailsCleaned.csv'
 
 
 
@@ -53,3 +53,26 @@ operación seleccionada.
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+def printMenu():
+    print('Bienvenido')
+    print('1- Cargar datos.')
+    print('2- Consultar la ultima y primera pelicula.')
+    print('0- Salir')
+
+while True:
+    printMenu()
+    inputs = input('Seleccione una opción para continuar\n')
+    if inputs[0]=='1':
+        print('caragndo datos...')
+        print('La longitud de los datos es:\"',str("el parametro de la longitud") ,'\"') #terminar con la funcion de carga
+    elif inputs[0]== '2':
+        (firts,last)=controller.getFirstLastMovies(catalog)
+        print('La primera pelicula es: ')
+        for data in firts:
+            print(data)
+        print('La ultima pelicula es: ')
+        for data in last:
+            print(data)
+    else:
+        sys.exit(0)
+sys.exit(0)
