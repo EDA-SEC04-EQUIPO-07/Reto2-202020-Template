@@ -23,6 +23,7 @@
 import sys
 import config
 from DISClib.ADT import list as lt
+from DISClib.DataStructures import arraylist
 from DISClib.DataStructures import listiterator as it
 from App import controller
 assert config
@@ -66,9 +67,9 @@ while True:
     lst2=controller.initList()
     if inputs[0]=='1':
         print('caragndo datos...')
-        print('La longitud de los datos es:\"',str("el parametro de la longitud") ,'\"') #terminar con la funcion de carga
+        print('La longitud de los datos es:\"',arraylist.size(lst2) ,'\"') #terminar con la funcion de carga
     elif inputs[0]== '2':
-        (firts,last)=controller.getFirstLastMovies('catalog')#El nombre del catalogo con details
+        (firts,last)=controller.getFirstLastMovies(lst2)#El nombre del catalogo con details
         #dar la longitud de la lista
         print('La primera pelicula es: ')
         for data in first:
