@@ -22,6 +22,9 @@
 
 import config as cf
 from App import model
+from ADT import list as lt
+from DISClib.DataStructures import listiterator as it
+from DISClib.DataStructures import liststructure as lt
 import csv
 
 
@@ -37,7 +40,13 @@ recae sobre el controlador.
 #  Inicializacion del catalogo
 # ___________________________________________________
 
-
+def initCatalog():
+    """
+    Llama la funcion de inicializacion del catalogo del modelo.
+    """
+    # catalog es utilizado para interactuar con el modelo
+    catalog = model.newCatalog()
+    return catalog
 
 
 # ___________________________________________________
@@ -45,10 +54,35 @@ recae sobre el controlador.
 #  de datos en los modelos
 # ___________________________________________________
 
+<<<<<<< HEAD
+def loadCSVFile (lst , file):
+    lst=lt.newList(datastructure="ARRAY_LIST")
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    try:
+        with open( file, encoding="utf-8") as csvfile:
+            row = csv.DictReader(csvfile, dialect=dialect)
+            for elemento in row: 
+                lt.addLast(lst,elemento)
+    except:
+        print("Hubo un error con la carga del archivo")
+    return lst
+
+def loadData(catalog, castingfile, detailsfile,):
+    """
+    Carga los datos de los archivos en el modelo
+    """
+    lst1= loadCSVFile(catalog, castingfile)
+    lst2= loadCSVFile(catalog, detailsfile)
+    
+=======
+>>>>>>> 26c80e740622018c95a919cb68fa7ebbe25d1f51
 
 
 
 
+<<<<<<< HEAD
+=======
 # ___________________________________________________
 #  Funciones generales implementadas
 # ___________________________________________________
@@ -59,3 +93,4 @@ def getFirstLastMovies(catalog):
     first_movie=lt.firstElement(catalog)
     last_movie=lt.lastElement(catalog)
     return (first_movie, last_movie)
+>>>>>>> 26c80e740622018c95a919cb68fa7ebbe25d1f51
