@@ -62,6 +62,8 @@ def printMenu():
 while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
+    lst1=controller.initList()
+    lst2=controller.initList()
     if inputs[0]=='1':
         print('caragndo datos...')
         print('La longitud de los datos es:\"',str("el parametro de la longitud") ,'\"') #terminar con la funcion de carga

@@ -42,9 +42,8 @@ recae sobre el controlador.
 
 def initCatalog():
     """
-    Llama la funcion de inicializacion del catalogo del modelo.
+    Llama la funcion de inicializacion del TAD list.
     """
-    # catalog es utilizado para interactuar con el modelo
     catalog = lt.newList(datastructure="ARRAY_LIST")
     return catalog
 

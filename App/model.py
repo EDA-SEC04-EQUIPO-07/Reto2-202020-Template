@@ -33,10 +33,14 @@ es decir contiene los modelos con los datos en memoria
 """
 
 # -----------------------------------------------------
-# API del TAD Catalogo de Libros
+# API del TAD Catalogo de peliculas
 # -----------------------------------------------------
-
-
+ def initList():
+     """
+     Inicia la primera lista
+     """
+    lst=ct.initCatalog()
+    return lst
 
 # Funciones para agregar informacion al catalogo
 
