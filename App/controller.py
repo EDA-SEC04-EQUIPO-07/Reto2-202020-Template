@@ -45,7 +45,7 @@ def initCatalog():
     Llama la funcion de inicializacion del catalogo del modelo.
     """
     # catalog es utilizado para interactuar con el modelo
-    catalog = model.newCatalog()
+    catalog = lt.newList(datastructure="ARRAY_LIST")
     return catalog
 
 
