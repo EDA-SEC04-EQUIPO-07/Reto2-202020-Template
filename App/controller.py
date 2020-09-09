@@ -54,7 +54,6 @@ def initCatalog():
 #  de datos en los modelos
 # ___________________________________________________
 
-<<<<<<< HEAD
 def loadCSVFile (lst , file):
     lst=lt.newList(datastructure="ARRAY_LIST")
     dialect = csv.excel()
@@ -75,14 +74,10 @@ def loadData(catalog, castingfile, detailsfile,):
     lst1= loadCSVFile(catalog, castingfile)
     lst2= loadCSVFile(catalog, detailsfile)
     
-=======
->>>>>>> 26c80e740622018c95a919cb68fa7ebbe25d1f51
 
 
 
 
-<<<<<<< HEAD
-=======
 # ___________________________________________________
 #  Funciones generales implementadas
 # ___________________________________________________
@@ -93,4 +88,3 @@ def getFirstLastMovies(catalog):
     first_movie=lt.firstElement(catalog)
     last_movie=lt.lastElement(catalog)
     return (first_movie, last_movie)
->>>>>>> 26c80e740622018c95a919cb68fa7ebbe25d1f51
