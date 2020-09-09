@@ -23,6 +23,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
+import controller as ct
 assert config
 
 """
@@ -44,7 +45,14 @@ es decir contiene los modelos con los datos en memoria
 # ==============================
 # Funciones de consulta
 # ==============================
-
+def getFirtsLastBooks(catalog):
+    """
+    Retorna los primeros valores de la primera y ultima llave.
+    """
+    (firts,last)= ct.getFirstLastBooks(catalog)
+    data_firts=[firts['title'], firts['release_date'],firts['vote_average'],firts['vote_count'],firts['original_language']]
+    data_last=[last['title'], last['release_date'],last['vote_average'],last['vote_count'],last['original_language']]
+    return (data_firts,data_last)
 
 
 # ==============================
