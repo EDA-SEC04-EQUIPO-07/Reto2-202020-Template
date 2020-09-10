@@ -37,6 +37,7 @@ operación seleccionada.
 # ___________________________________________________
 #  Ruta a los archivos
 # ___________________________________________________
+
 file_cast='Data\Movies\MoviesCastingRaw-small.csv'
 file_details='Data\Movies\SmallMoviesDetailsCleaned.csv'
 

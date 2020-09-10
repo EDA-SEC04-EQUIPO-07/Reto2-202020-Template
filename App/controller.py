@@ -80,6 +80,7 @@ def loadData(catalog, castingfile, detailsfile,):
 # ___________________________________________________
 #  Funciones generales implementadas
 # ___________________________________________________
+
 def getFirstLastMovies(catalog):
     """
     Retorna el primer y ultimo libro de la lista.
