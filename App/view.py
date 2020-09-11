@@ -25,7 +25,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import arraylist
 from DISClib.DataStructures import listiterator as it
-from App import controller
+import model as md
 assert config
 
 """
@@ -38,8 +38,8 @@ operación seleccionada.
 # ___________________________________________________
 #  Ruta a los archivos
 # ___________________________________________________
-file_cast='Data\Movies\MoviesCastingRaw-small.csv'
-file_details='Data\Movies\SmallMoviesDetailsCleaned.csv'
+file_cast=config.file_dir+'\Data\Movies\MoviesCastingRaw-small.csv'
+file_details=config.file_dir+'\Data\Movies\SmallMoviesDetailsCleaned.csv'
 
 
 
@@ -63,14 +63,17 @@ def printMenu():
 while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
-    lst1=controller.initList()
-    lst2=controller.initList()
+    lst1=md.initList()
+    lst2=md.initList()
     if inputs[0]=='1':
         print('caragndo datos...')
-        print('La longitud de los datos es:\"',arraylist.size(lst2) ,'\"') #terminar con la funcion de carga
+        lst1=md.loadFiles(lst1, file_cast)
+        lst2=md.loadFiles(lst2, file_details)
+        print('La longitud de los datos es:\"',arraylist.size(lst1) ,'\"')
+        print('La longitud de los datos es:\"',arraylist.size(lst2) ,'\"') 
     elif inputs[0]== '2':
-        (firts,last)=controller.getFirstLastMovies(lst2)#El nombre del catalogo con details
-        #dar la longitud de la lista
+        (first,last)=md.getFirstLastMovies(lst2)
+        print('La cantidad total de peliculas es:', arraylist.size(lst2))
         print('La primera pelicula es: ')
         for data in first:
             print(data)
