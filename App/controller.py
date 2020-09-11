@@ -46,7 +46,7 @@ def initCatalog():
 # Funciones para agregar informacion al catalogo
 #______________________________________________________
 
-def loadData(catalog, file, info):
+def loadDatarow(catalog, file, info):
     """
     Carga los datos de las peliculas en el mapa
     """

@@ -132,7 +132,6 @@ def addMovie(catalog, movie, info):
     elif info =='2':
         movies=catalog['Data']['details']
         lt.addLast(movies, movie)
-   
 
 def addCompany(company_name, movie,catalog):
     """
@@ -147,14 +146,12 @@ def addCompany(company_name, movie,catalog):
         company=newComopanies(company_name)
         mp.put(companies, company_name, company)
     lt.addLast(company['movies'], movie)
-
     avg_cp=company['vote_avg']
     avg_mv=movie['vote_average']
     if avg_cp == None:
         company['vote_avg']=float(avg_mv)
     else:
-        company['vote_avg']= round(((avg_cp+ float(avg_mv))/2),2)
-    
+        company['vote_avg']= round(((avg_cp+ float(avg_mv))/2),2)    
 
 def addDirector(director_name, movie,catalog):
     """
@@ -169,7 +166,6 @@ def addDirector(director_name, movie,catalog):
         director=newComopanies(director_name)
         mp.put(directors, director_name, director)
     lt.addLast(director['movies'], movie)
-
     avg_dc=director['vote_avg']
     avg_mv=movie['vote_average']
     if avg_dc == None:
@@ -190,7 +186,6 @@ def addActor(actor_name, movie, catalog):
         actor=newComopanies(actor_name)
         mp.put(actors, actor_name, actor)
     lt.addLast(actor['movies'], movie)
-
     avg_at=actor['vote_avg']
     avg_mv=movie['vote_average']
     if avg_at == None:
@@ -211,7 +206,6 @@ def addGenre(genre_name, movie, catalog):
         genre=newComopanies(genre_name)
         mp.put(genres, genre_name, genre)
     lt.addLast(genre['movies'], movie)
-
     avg_gn=genre['vote_avg']
     avg_mv=movie['vote_average']
     if avg_gn == None:
