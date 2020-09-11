@@ -45,24 +45,15 @@ def initCatalog():
 #______________________________________________________
 # Funciones para agregar informacion al catalogo
 #______________________________________________________
-def loadFiles(lst, file):
-    """
-    Carga la informacion a lista pasada por parametro
-    """
-    lst=ct.loadCSVFile(lst, file)
-    return lst
 
 def loadData(catalog, file, info):
     """
     Carga los datos de las peliculas en el mapa
     """
-    file_a= config.file_dir + file_casting
-    data_row= csv.DictReader(open(details_file))
-    if info == '1':
-        md.addMovie
-
-        
-
+    file_a= config.file_dir + file
+    data_row= csv.DictReader(open(file_a))
+    for movie in data_row:
+        md.addMovie(catalog, movie, info)
 
 #______________________________________________________
 # Funciones de consulta

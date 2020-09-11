@@ -40,26 +40,6 @@ recae sobre el controlador.
 #  Implementacion 0
 # ___________________________________________________
 
-def initCatalog():
-    """
-    Llama la funcion de inicializacion del TAD list.
-    """
-    catalog = lt.newList(datastructure="ARRAY_LIST")
-    return catalog
-    
-def loadCSVFile (lst , file):
-    lst=lt.newList(datastructure="ARRAY_LIST")
-    dialect = csv.excel()
-    dialect.delimiter=";"
-    try:
-        with open( file, encoding="utf-8") as csvfile:
-            row = csv.DictReader(csvfile, dialect=dialect)
-            for elemento in row: 
-                lt.addLast(lst,elemento)
-    except:
-        print("Hubo un error con la carga del archivo")
-    return lst
-
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
@@ -96,18 +76,53 @@ def newCatalog():
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
-def NewComopanies(company_name):
+
+def newComopanies(company_name):
     """
-    Crea un nuevo elemento de las compañias 
+    Crea un nuevo elemento de las compañias. 
     """
     company={'name': '', 'movies':None, 'vote_avg': None}
     company['name']=company_name
     company_name['movies']=lt.newList(datastructure='ARRAY_LIST')
     return company
 
+def newDirector(director_name):
+    """
+    Crea un nuevo elemento de los directores.
+    """
+    director={'name':'', 'movies': None, 'vote_avg': None}
+    director['name']=director_name
+    director['movies']=lt.newList(datastructure='ARRAY_LIST')
+    return director
 
+def newActor(actor_name):
+    """
+    Crea un nuevo elemento de los actores.
+    """
+    actor={'name': '', 'movies': None, 'vote_avg': None}
+    actor['name']=actor_name
+    actor['movies']=lt.newList(datastructure='ARRAY_LIST')
+    return actor 
 
-def addMovie(catalog, movie, info)
+def newGenre(genre_name):
+    """
+    Crea un nuevo elemento de generos.
+    """
+    genre={'name': '', 'movies': None, 'vote_avg': None}
+    genre['name']=genre_name
+    genre['movies']=lt.newList(datastructure='ARRAY_LIST')
+    return genre
+
+def newCountry(country_name):
+    """
+    Crea un nuevo elemento de paises.
+    """
+    country={'name':None, 'movies':None, 'vote_avg': None}
+    country['name']=country_name
+    country['movies']=lt.newList(datastructure='ARRAY_LIST')
+    return country
+
+def addMovie(catalog, movie, info):
     """
     Agregar una pelicula.
     """
@@ -117,40 +132,114 @@ def addMovie(catalog, movie, info)
     elif info =='2':
         movies=catalog['Data']['details']
         lt.addLast(movies, movie)
-    
+   
 
-
-
-
-
-
-
-
-
-
-def addCompanie(company_name, movie,catalog):
+def addCompany(company_name, movie,catalog):
     """
     Agrega una nueva compañia al mapa de productoras
     """
-    comapnies=catalog['production_companies']
-    exist=mp.contains(comapnies, company_name)
+    companies=catalog['production_companies']
+    exist=mp.contains(companies, company_name)
     if exist:
-        entry=mp.get(comapnies, company_name)
+        entry=mp.get(companies, company_name)
         company=me.getValue(entry)
     else:
-        company=NewComopanies(company_name)
-        mp.put(comapnies, company_name, company)
-    lt.addLast(comapnies['movies'], movie)
+        company=newComopanies(company_name)
+        mp.put(companies, company_name, company)
+    lt.addLast(company['movies'], movie)
 
     avg_cp=company['vote_avg']
     avg_mv=movie['vote_average']
     if avg_cp == None:
         company['vote_avg']=float(avg_mv)
     else:
-        company['vote_avg']= round((company['vote_avg']+ float(avg_mv))/2,2)
+        company['vote_avg']= round(((avg_cp+ float(avg_mv))/2),2)
     
 
-                                         
+def addDirector(director_name, movie,catalog):
+    """
+    Agrega informacion de un director en el mapa de directores.
+    """
+    directors=catalog['director_name']
+    exist=mp.contains(directors, director_name)
+    if exist:
+        entry=mp.get(directors, director_name)
+        director=me.getValue(entry)
+    else:
+        director=newComopanies(director_name)
+        mp.put(directors, director_name, director)
+    lt.addLast(director['movies'], movie)
+
+    avg_dc=director['vote_avg']
+    avg_mv=movie['vote_average']
+    if avg_dc == None:
+        director['vote_avg']=float(avg_mv)
+    else:
+        director['vote_avg']= round(((avg_dc+ float(avg_mv))/2),2)
+
+def addActor(actor_name, movie, catalog):
+    """
+    Agrega informacion de un actor en el mapa de actores.
+    """
+    actors=catalog['director_name']
+    exist=mp.contains(actors, actor_name)
+    if exist:
+        entry=mp.get(actors, actor_name)
+        actor=me.getValue(entry)
+    else:
+        actor=newComopanies(actor_name)
+        mp.put(actors, actor_name, actor)
+    lt.addLast(actor['movies'], movie)
+
+    avg_at=actor['vote_avg']
+    avg_mv=movie['vote_average']
+    if avg_at == None:
+        actor['vote_avg']=float(avg_mv)
+    else:
+        actor['vote_avg']= round(((avg_at+ float(avg_mv))/2),2)
+
+def addGenre(genre_name, movie, catalog):
+    """
+    Agrega informacion de un genero en el mapa de generos.
+    """
+    genres=catalog['genre']
+    exist=mp.contains(genres, genre_name)
+    if exist:
+        entry=mp.get(genres, genre_name)
+        genre=me.getValue(entry)
+    else:
+        genre=newComopanies(genre_name)
+        mp.put(genres, genre_name, genre)
+    lt.addLast(genre['movies'], movie)
+
+    avg_gn=genre['vote_avg']
+    avg_mv=movie['vote_average']
+    if avg_gn == None:
+        genre['vote_avg']=float(avg_mv)
+    else:
+        genre['vote_avg']= round(((avg_gn+ float(avg_mv))/2),2)
+
+def addCountry(country_name, movie, catalog):
+    """
+    Agrega informacion de un país en el mapa de un país.
+    """
+    countries=catalog['production_countries']
+    exist=mp.contains(countries, country_name)
+    if exist:
+        entry=mp.get(countries, country_name)
+        country=me.getValue(entry)
+    else:
+        country=newComopanies(country_name)
+        mp.put(countries, country_name, country)
+    lt.addLast(country['movies'], movie)
+
+    avg_ct=country['vote_avg']
+    avg_mv=movie['vote_average']
+    if avg_ct == None:
+        genre['vote_avg']=float(avg_mv)
+    else:
+        genre['vote_avg']= round(((avg_ct+ float(avg_mv))/2),2)
+
 # ___________________________________________________
 #  Funciones generales implementadas
 # ___________________________________________________
