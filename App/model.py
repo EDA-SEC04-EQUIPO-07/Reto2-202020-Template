@@ -40,7 +40,7 @@ recae sobre el controlador.
 #  Implementacion 0
 # ___________________________________________________
 
-<<<<<<< HEAD
+
 # -----------------------------------------------------
 # API del TAD Catalogo de peliculas
 # -----------------------------------------------------
@@ -51,11 +51,10 @@ recae sobre el controlador.
      """
     lst=ct.initCatalog()
     return lst
-=======
+    
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
->>>>>>> 0a5cf97deb66fad48fd4a61ad8e3d32479840b5c
 
 def newCatalog():
     """
@@ -84,13 +83,12 @@ def newCatalog():
                                         maptype='PROBING', 
                                         loadfactor=0.4)
 
-<<<<<<< HEAD
 # ==============================
 # Funciones de consulta
 # ==============================
 
 def getFirtsLastMovies(catalog):
-=======
+
 
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
@@ -98,7 +96,6 @@ def getFirtsLastMovies(catalog):
 # ___________________________________________________
 
 def newComopanies(company_name):
->>>>>>> 0a5cf97deb66fad48fd4a61ad8e3d32479840b5c
     """
     Crea un nuevo elemento de las compañias. 
     """

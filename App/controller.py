@@ -73,7 +73,6 @@ def getFirtsLastMovies(catalog):
 #______________________________________________________
 
 
-<<<<<<< HEAD
 # ___________________________________________________
 #  Funciones generales implementadas
 # ___________________________________________________
@@ -85,5 +84,3 @@ def getFirstLastMovies(catalog):
     first_movie=lt.firstElement(catalog)
     last_movie=lt.lastElement(catalog)
     return (first_movie, last_movie)
-=======
->>>>>>> 0a5cf97deb66fad48fd4a61ad8e3d32479840b5c
