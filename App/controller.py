@@ -54,18 +54,9 @@ def loadDatarow(catalog, file, info):
     data_row= csv.DictReader(open(file_a))
     for movie in data_row:
         md.addMovie(catalog, movie, info)
-
 #______________________________________________________
 # Funciones de consulta
 #______________________________________________________
-def getFirtsLastMovies(catalog):
-    """
-    Retorna los primeros valores de la primera y ultima llave.
-    """
-    (first,last)= md.getFirstLastBooks(catalog)
-    data_first=[first['title'], first['release_date'],first['vote_average'],first['vote_count'],first['original_language']]
-    data_last=[last['title'], last['release_date'],last['vote_average'],last['vote_count'],last['original_language']]
-    return (data_first,data_last)
 
 
 #______________________________________________________

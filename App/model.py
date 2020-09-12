@@ -55,7 +55,7 @@ def newCatalog():
     catalog['Data']['casting']=lt.newList(datastructure='ARRAY_LIST')
     catalog['Data']['details']=lt.newList(datastructure='ARRAY_LIST')
 
-    catalog['production_companies']=mp.newMap(numelements=(countBy('production_companies', catalog['Movies'])),
+    catalog['production_companies']=mp.newMap(numelements=(countBy('production_companies', catalog['Data'])),
                                         maptype='CHAINING',
                                         loadfactor=0.4)
     catalog['director_name']=mp.newMap(numelements=countBy('director_name',catalog['Movies']), 
@@ -251,8 +251,11 @@ def countBy(criteria, lst):
     """
     number=0
     names=[]
-    for element in lst:
-        if element[criteria] not in names:
-            number=+1
-            names.appende(element[criteria])
+    iterator=it.newIterator
+    while it.hasNext(iterator):
+        movie=it.next(iterator)
+        value=movie[criteria]
+        if value not in names:
+            number+=1
+            names.append(value)
     return number
