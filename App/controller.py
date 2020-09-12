@@ -51,23 +51,25 @@ def initCatalog():
 # ___________________________________________________
 
 
-def loadDataCast(catalog, file, info):
+def loadDataCast(catalog, file):
     """
     Carga los datos de las peliculas en el mapa
     """
     file_Cast= config.file_dir + file
-    data_Cast= csv.DictReader(open(file_Cast))
-    for movie in data_Cast:
-        md.addMovie(catalog, movie, info)
+    with open(file_Cast, encoding="utf-8") as movies:
+        data_row=csv.DictReader(movies)
+        for movie in data_row:
+            md.addMovie(catalog, movie, info=1)
 
-def loadDataDetails(catalog, file, info):
+def loadDataDetails(catalog, file):
     """
     Carga los datos de las peliculas en el mapa
-    """
-    file_Details= config.file_dir + file
-    data_Details= csv.DictReader(open(file_Details))
-    for movie in data_Details:
-        md.addMovie(catalog, movie, info)
+    """    
+    file_Cast= config.file_dir + file
+    with open(file_Cast, encoding="utf-8") as movies:
+        data_row=csv.DictReader(movies)
+        for movie in data_row:
+            md.addMovie(catalog, movie, info=2)
 #______________________________________________________
 # Funciones de consulta
 #______________________________________________________
