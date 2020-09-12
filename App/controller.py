@@ -19,64 +19,61 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
-
-import config as cf
-from App import model
-from ADT import list as lt
-from DISClib.DataStructures import listiterator as it
-from DISClib.DataStructures import liststructure as lt
+import config
+from DISClib.ADT import list as lt
+from DISClib.ADT import map as mp
+from DISClib.DataStructures import mapentry as me
+import model as md
+assert config
 import csv
 
+"""
+En este archivo definimos los TADs que vamos a usar,
+es decir contiene los modelos con los datos en memoria
 
 """
-El controlador se encarga de mediar entre la vista y el modelo.
-Existen algunas operaciones en las que se necesita invocar
-el modelo varias veces o integrar varias de las respuestas
-del modelo en una sola respuesta. Esta responsabilidad
-recae sobre el controlador.
-"""
 
-# ___________________________________________________
-#  Inicializacion del catalogo
-# ___________________________________________________
-
+#______________________________________________________
+# API del TAD Catalogo de peliculas
+#______________________________________________________
 def initCatalog():
     """
-    Llama la funcion de inicializacion del TAD list.
+    Inicia un catalgo
     """
-    catalog = lt.newList(datastructure="ARRAY_LIST")
+    catalog=md.newCatalog()
     return catalog
+#______________________________________________________
+# Funciones para agregar informacion al catalogo
+#______________________________________________________
 
-
-# ___________________________________________________
-#  Funciones para la carga de datos y almacenamiento
-#  de datos en los modelos
-# ___________________________________________________
-
-def loadCSVFile (lst , file):
-    lst=lt.newList(datastructure="ARRAY_LIST")
-    dialect = csv.excel()
-    dialect.delimiter=";"
-    try:
-        with open( file, encoding="utf-8") as csvfile:
-            row = csv.DictReader(csvfile, dialect=dialect)
-            for elemento in row: 
-                lt.addLast(lst,elemento)
-    except:
-        print("Hubo un error con la carga del archivo")
-    return lst
-
-def loadData(catalog, castingfile, detailsfile,):
+def loadDatarow(catalog, file, info):
     """
-    Carga los datos de los archivos en el modelo
+    Carga los datos de las peliculas en el mapa
     """
-    lst1= loadCSVFile(catalog, castingfile)
-    lst2= loadCSVFile(catalog, detailsfile)
-    
+    file_a= config.file_dir + file
+    data_row= csv.DictReader(open(file_a))
+    for movie in data_row:
+        md.addMovie(catalog, movie, info)
+
+#______________________________________________________
+# Funciones de consulta
+#______________________________________________________
+def getFirtsLastMovies(catalog):
+    """
+    Retorna los primeros valores de la primera y ultima llave.
+    """
+    (first,last)= md.getFirstLastBooks(catalog)
+    data_first=[first['title'], first['release_date'],first['vote_average'],first['vote_count'],first['original_language']]
+    data_last=[last['title'], last['release_date'],last['vote_average'],last['vote_count'],last['original_language']]
+    return (data_first,data_last)
 
 
+#______________________________________________________
+# Funciones de Comparacion
+#______________________________________________________
 
 
+<<<<<<< HEAD
 # ___________________________________________________
 #  Funciones generales implementadas
 # ___________________________________________________
@@ -88,3 +85,5 @@ def getFirstLastMovies(catalog):
     first_movie=lt.firstElement(catalog)
     last_movie=lt.lastElement(catalog)
     return (first_movie, last_movie)
+=======
+>>>>>>> 0a5cf97deb66fad48fd4a61ad8e3d32479840b5c
