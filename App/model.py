@@ -66,6 +66,7 @@ def newCatalog():
     catalog['production_countries']=mp.newMap(numelements=(countBy('production_countries', catalog['Data']['details'])), 
                                         maptype='PROBING', 
                                         loadfactor=0.4)
+    return catalog 
 
 
 
