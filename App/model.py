@@ -77,8 +77,8 @@ def newCatalog():
     Data={'casting': None, 'details': None}
     catalog={ 'Data': Data, 'production_companies': None, 'director_name': None, 'actor_name': None,'genres':None, 'production_countries': None}
 
-    catalog['Data']['casting']=lt.newList()
-    catalog['Data']['details']=lt.newList()
+    catalog['Data']['casting']=lt.newList(datastructure='ARRAY_LIST')
+    catalog['Data']['details']=lt.newList(datastructure='ARRAY_LIST')
 
     catalog['production_companies']=mp.newMap(numelements=2000,
                                         maptype='PROBING',

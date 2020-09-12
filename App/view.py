@@ -42,8 +42,6 @@ operación seleccionada.
 file_cast='\Data\Movies\MoviesCastingRaw-small.csv'
 file_details='\Data\Movies\SmallMoviesDetailsCleaned.csv'
 
-
-
 # ___________________________________________________
 #  Funciones para imprimir la inforamación de
 #  respuesta.  La vista solo interactua con

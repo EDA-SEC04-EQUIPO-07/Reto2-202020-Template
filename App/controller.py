@@ -44,6 +44,7 @@ def initlist():
     """
     lst=md.newlist()
     return lst
+
 def loadlist(file, lst):
     """
     Carga elementos en una lista
@@ -56,7 +57,7 @@ def loadlist(file, lst):
 # Inicializacion del Catalogo
 #______________________________________________________
 
-def initCatalog():
+def initCatalog():#no necesita revision
     """
     Llama la funcion de inicializacion del catalogo del modelo.
     """
@@ -68,6 +69,8 @@ def initCatalog():
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+
+#por terminar
 
 def loadDataCast(catalog, file):
     """
