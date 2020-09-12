@@ -33,22 +33,11 @@ es decir contiene los modelos con los datos en memoria
 
 """
 
+
 #______________________________________________________
-# Inicializacion del Catalogo
+# Funcion 0
 #______________________________________________________
 
-def initCatalog(lst1, lst2):
-    """
-    Llama la funcion de inicializacion del catalogo del modelo.
-    """
-    # catalog es utilizado para interactuar con el modelo
-    catalog = md.newCatalog(lst1, lst2)
-    return catalog
-
-# ___________________________________________________
-#  Funciones para la carga de datos y almacenamiento
-#  de datos en los modelos
-# ___________________________________________________
 def initlist():
     """
     Crea una lista nueva.
@@ -63,12 +52,29 @@ def loadlist(file, lst):
     lst=md.loadCSVFile(file, lst)
     return lst
 
+#______________________________________________________
+# Inicializacion del Catalogo
+#______________________________________________________
+
+def initCatalog():
+    """
+    Llama la funcion de inicializacion del catalogo del modelo.
+    """
+    # catalog es utilizado para interactuar con el modelo
+    catalog = md.newCatalog()
+    return catalog
+
+# ___________________________________________________
+#  Funciones para la carga de datos y almacenamiento
+#  de datos en los modelos
+# ___________________________________________________
+
 def loadDataCast(catalog, file):
     """
     Carga los datos de las peliculas en el mapa
     """
-    file_Cast= config.file_dir + file
-    with open(file_Cast, encoding="utf-8") as movies:
+    file= config.file_dir + file
+    with open(file, encoding="utf-8") as movies:
         data_row=csv.DictReader(movies)
         for movie in data_row:
             md.addMovie(catalog, movie, info=1)
@@ -77,11 +83,12 @@ def loadDataDetails(catalog, file):
     """
     Carga los datos de las peliculas en el mapa
     """    
-    file_Cast= config.file_dir + file
-    with open(file_Cast, encoding="utf-8") as movies:
+    file= config.file_dir + file
+    with open(file, encoding="utf-8") as movies:
         data_row=csv.DictReader(movies)
         for movie in data_row:
             md.addMovie(catalog, movie, info=2)
+
 #______________________________________________________
 # Funciones de consulta
 #______________________________________________________

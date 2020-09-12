@@ -20,6 +20,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+#______________________________________________________
+# Imports
+#______________________________________________________
+
+
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
@@ -37,16 +42,16 @@ del modelo en una sola respuesta. Esta responsabilidad
 recae sobre el controlador.
 """
 
-# -----------------------------------------------------
-# API del TAD Catalogo de peliculas
-# -----------------------------------------------------
+#______________________________________________________
+# Funcion 0
+#______________________________________________________
+
 def newlist():
     """
     Crea una lista vacia.
     """
     lst=lt.newList
     return lst
-
 
 def loadCSVFile (file, lst):
     lst=lt.newList(datastructure="ARRAY_LIST")
@@ -61,18 +66,22 @@ def loadCSVFile (file, lst):
         print("Hubo un error con la carga del archivo")
     return lst
 
-def newCatalog(lst1, lst2):
+#______________________________________________________
+# API del TAD Catalogo de peliculas
+#______________________________________________________
+
+def newCatalog():
     """
     Crea un nuevo catalogo.
     """
     Data={'casting': None, 'details': None}
     catalog={ 'Data': Data, 'production_companies': None, 'director_name': None, 'actor_name': None,'genres':None, 'production_countries': None}
 
-    catalog['Data']['casting']=lst1
-    catalog['Data']['details']=lst2
+    catalog['Data']['casting']=lt.newList()
+    catalog['Data']['details']=lt.newList()
 
     catalog['production_companies']=mp.newMap(numelements=2000,
-                                        maptype='CHAINING',
+                                        maptype='PROBING',
                                         loadfactor=0.4)
     catalog['director_name']=mp.newMap(numelements=2000, 
                                         maptype='PROBING', 
@@ -87,8 +96,6 @@ def newCatalog(lst1, lst2):
                                         maptype='PROBING', 
                                         loadfactor=0.4)
     return catalog 
-
-
 
 def newComopanies(company_name):
     """
@@ -136,18 +143,18 @@ def newCountry(country_name):
     return country
 
 
-# -----------------------------------------------------
+#______________________________________________________
 # Funciones para agregar informacion al catalogo
-# ------------------------------------------
+#______________________________________________________
 
 def addMovie(catalog, movie, info):
     """
     Agregar una pelicula.
     """
-    if info == '1':
+    if info == 1:
         movies=catalog['Data']['casting']
         lt.addLast(movies, movie)
-    elif info =='2':
+    elif info ==2:
         movies=catalog['Data']['details']
         lt.addLast(movies, movie)
 
@@ -253,9 +260,9 @@ def addCountry(country_name, movie, catalog):
         country['vote_avg']= round(((avg_ct+ float(avg_mv))/2),2)
 
 
-# ==============================
+#______________________________________________________
 # Funciones de consulta
-# ==============================
+#______________________________________________________
 
 def getFirstLastMovies(catalog):
     """
