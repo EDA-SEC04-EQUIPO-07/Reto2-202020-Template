@@ -50,28 +50,22 @@ def initCatalog():
 #  de datos en los modelos
 # ___________________________________________________
 
-def loadData(catalog, file_details, tagsfile):
-    """
-    Carga los datos de los archivos en el modelo
-    """
-    loadDataDetails(catalog, file_details)
-    loadDatarow(catlog, file_cast)
 
-def loadDatarow(catalog, file, info):
+def loadDataCast(catalog, file, info):
     """
     Carga los datos de las peliculas en el mapa
     """
-    file_a= config.file_dir + file
-    data_row= csv.DictReader(open(file_a))
-    for movie in data_row:
+    file_Cast= config.file_dir + file
+    data_Cast= csv.DictReader(open(file_Cast))
+    for movie in data_Cast:
         md.addMovie(catalog, movie, info)
 
 def loadDataDetails(catalog, file, info):
     """
     Carga los datos de las peliculas en el mapa
     """
-    file_a= config.file_dir + file
-    data_Details= csv.DictReader(open(file_a))
+    file_Details= config.file_dir + file
+    data_Details= csv.DictReader(open(file_Details))
     for movie in data_Details:
         md.addMovie(catalog, movie, info)
 

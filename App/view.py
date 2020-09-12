@@ -70,7 +70,7 @@ while True:
 
     if inputs[0]=='1':
         print('caragndo datos...')
-        lst1=controller.loadDatarow(lst1, file_cast)
+        lst1=controller.loadDataCast(lst1, file_cast)
         lst2=controller.loadDataDetails(lst2, file_details)
         print('La longitud de los datos es:\"',arraylist.size(lst1) ,'\"')
         print('La longitud de los datos es:\"',arraylist.size(lst2) ,'\"') 
@@ -84,7 +84,7 @@ while True:
         print('La ultima pelicula es: ')
         for data in last:
             print(data)
-            
+
     else:
         sys.exit(0)
 sys.exit(0)
