@@ -34,19 +34,22 @@ es decir contiene los modelos con los datos en memoria
 """
 
 #______________________________________________________
-# API del TAD Catalogo de peliculas
+# Inicializacion del Catalogo
 #______________________________________________________
 
 def initCatalog():
     """
-    Inicia un catalgo
+    Llama la funcion de inicializacion del catalogo del modelo.
     """
-    catalog=md.newCatalog()
+    # catalog es utilizado para interactuar con el modelo
+    catalog = md.newCatalog()
     return catalog
 
-#______________________________________________________
-# Funciones para agregar informacion al catalogo
-#______________________________________________________
+# ___________________________________________________
+#  Funciones para la carga de datos y almacenamiento
+#  de datos en los modelos
+# ___________________________________________________
+
 
 def loadDatarow(catalog, file, info):
     """
@@ -66,18 +69,23 @@ def loadDataDetails(catalog, file, info):
     for movie in data_Details:
         md.addMovie(catalog, movie, info)
 
+
+#______________________________________________________
+# Funciones para agregar informacion al catalogo
+#______________________________________________________
+
+
 #______________________________________________________
 # Funciones de consulta
 #______________________________________________________
 
-def getFirtsLastMovies(catalog):
+def getFirstLastMovies(catalog):
     """
-    Retorna los primeros valores de la primera y ultima llave.
+    Retorna el primer y ultimo libro de la lista.
     """
-    (first,last)= md.getFirstLastBooks(catalog)
-    data_first=[first['title'], first['release_date'],first['vote_average'],first['vote_count'],first['original_language']]
-    data_last=[last['title'], last['release_date'],last['vote_average'],last['vote_count'],last['original_language']]
-    return (data_first,data_last)
+    first_movie=lt.firstElement(catalog)
+    last_movie=lt.lastElement(catalog)
+    return (first_movie, last_movie)
 
 
 #______________________________________________________
@@ -89,10 +97,4 @@ def getFirtsLastMovies(catalog):
 #  Funciones generales implementadas
 # ___________________________________________________
 
-def getFirstLastMovies(catalog):
-    """
-    Retorna el primer y ultimo libro de la lista.
-    """
-    first_movie=lt.firstElement(catalog)
-    last_movie=lt.lastElement(catalog)
-    return (first_movie, last_movie)
+

@@ -36,33 +36,17 @@ el modelo varias veces o integrar varias de las respuestas
 del modelo en una sola respuesta. Esta responsabilidad
 recae sobre el controlador.
 """
-# ___________________________________________________
-#  Implementacion 0
-# ___________________________________________________
-
 
 # -----------------------------------------------------
 # API del TAD Catalogo de peliculas
 # -----------------------------------------------------
-
-def initList():
-     """
-     Inicia la primera lista
-     """
-    lst=ct.initCatalog()
-    return lst
-
-# ___________________________________________________
-#  Inicializacion del catalogo
-# ___________________________________________________
 
 def newCatalog():
     """
     Crea un nuevo catalogo.
     """
     Data={'casting': None, 'details': None}
-    catalog={ 'Data': Data 'production_companies': None, 'director_name': None, 'actor_name': None 
-    'genres':None, 'production_countries': None}
+    catalog={ 'Data': Data, 'production_companies': None, 'director_name': None, 'actor_name': None,'genres':None, 'production_countries': None}
 
     catalog['Data']['casting']=lt.newList(datastructure='ARRAY_LIST')
     catalog['Data']['details']=lt.newList(datastructure='ARRAY_LIST')
@@ -83,17 +67,7 @@ def newCatalog():
                                         maptype='PROBING', 
                                         loadfactor=0.4)
 
-# ==============================
-# Funciones de consulta
-# ==============================
 
-def getFirtsLastMovies(catalog):
-
-
-# ___________________________________________________
-#  Funciones para la carga de datos y almacenamiento
-#  de datos en los modelos
-# ___________________________________________________
 
 def newComopanies(company_name):
     """
@@ -139,6 +113,11 @@ def newCountry(country_name):
     country['name']=country_name
     country['movies']=lt.newList(datastructure='ARRAY_LIST')
     return country
+
+
+# -----------------------------------------------------
+# Funciones para agregar informacion al catalogo
+# ------------------------------------------
 
 def addMovie(catalog, movie, info):
     """
@@ -252,10 +231,10 @@ def addCountry(country_name, movie, catalog):
     else:
         genre['vote_avg']= round(((avg_ct+ float(avg_mv))/2),2)
 
-# ___________________________________________________
-#  Funciones generales implementadas
-# ___________________________________________________
 
+# ==============================
+# Funciones de consulta
+# ==============================
 
 def getFirstLastMovies(catalog):
     """

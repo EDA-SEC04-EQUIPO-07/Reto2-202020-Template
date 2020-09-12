@@ -25,7 +25,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import arraylist
 from DISClib.DataStructures import listiterator as it
-import model as md
+import controller as cn
 assert config
 
 """
@@ -65,12 +65,12 @@ def printMenu():
 while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
-    lst1=md.initList()
-    lst2=md.initList()
+    lst1=cn.initCatalog()
+    lst2=cn.initCatalog()
     if inputs[0]=='1':
         print('caragndo datos...')
-        lst1=md.loadFiles(lst1, file_cast)
-        lst2=md.loadFiles(lst2, file_details)
+        lst1=md.loadDatarow(lst1, file_cast)
+        lst2=md.loadDataDetails(lst2, file_details)
         print('La longitud de los datos es:\"',arraylist.size(lst1) ,'\"')
         print('La longitud de los datos es:\"',arraylist.size(lst2) ,'\"') 
     elif inputs[0]== '2':
