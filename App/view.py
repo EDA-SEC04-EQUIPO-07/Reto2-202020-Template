@@ -38,8 +38,8 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-
-
+booksfile = 'GoodReads/books-small.csv'
+tagsfile = 'GoodReads/tags.csv'
 
 
 # ___________________________________________________
