@@ -244,9 +244,17 @@ def getFirstLastMovies(catalog):
     last_movie=lt.lastElement(catalog)
     return (first_movie, last_movie)
 
+def getMoviesByCompanie (production_companie, catalog):
+    """
+    Retorna la lista de todas las películas producidas, el total de películas, el promedio de la calificación
+    de sus películas.
+    """
+    Companie = mp.get(catalog['production_companies'], production_companie)
+    avg= newComopanies(production_companie["vote_average"])
+
 def countBy(criteria, lst):
     """
-    cuenta la cantidad de elementos por un crterio.
+    cuenta la cantidad de elementos por un criterio.
     """
     number=0
     names=[]
@@ -255,3 +263,4 @@ def countBy(criteria, lst):
             number=+1
             names.appende(element[criteria])
     return number
+
