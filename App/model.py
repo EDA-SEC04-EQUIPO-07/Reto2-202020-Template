@@ -51,19 +51,19 @@ def newCatalog():
     catalog['Data']['casting']=lt.newList(datastructure='ARRAY_LIST')
     catalog['Data']['details']=lt.newList(datastructure='ARRAY_LIST')
 
-    catalog['production_companies']=mp.newMap(numelements=(countBy('production_companies', catalog['Data'])),
+    catalog['production_companies']=mp.newMap(numelements=(countBy('production_companies', catalog['Data']['details'])),
                                         maptype='CHAINING',
                                         loadfactor=0.4)
-    catalog['director_name']=mp.newMap(numelements=countBy('director_name',catalog['Movies']), 
+    catalog['director_name']=mp.newMap(numelements=countBy('director_name',catalog['Data']['casting']), 
                                         maptype='PROBING', 
                                         loadfactor=0.4)
-    catalog['actor_name']=mp.newMap(numelements=(countBy('actor_name',catalog['Movies'])), 
+    #catalog['actor_name']=mp.newMap(numelements=(countBy('actor_name',catalog['Data']['casting'])), 
+                                        #maptype='PROBING', 
+                                        #loadfactor=0.4)#Necesita mejoras, acceder a los actores
+    catalog['genres']=mp.newMap(numelements=(countBy('genres', catalog['Data']['details'])), 
                                         maptype='PROBING', 
                                         loadfactor=0.4)
-    catalog['genres']=mp.newMap(numelements=(countBy('genres', catalog['Movies'])), 
-                                        maptype='PROBING', 
-                                        loadfactor=0.4)
-    catalog['production_countries']=mp.newMap(numelements=(countBy('production_countries', catalog['Movies'])), 
+    catalog['production_countries']=mp.newMap(numelements=(countBy('production_countries', catalog['Data']['details'])), 
                                         maptype='PROBING', 
                                         loadfactor=0.4)
 
