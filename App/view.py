@@ -38,14 +38,9 @@ operación seleccionada.
 # ___________________________________________________
 #  Ruta a los archivos
 # ___________________________________________________
-<<<<<<< HEAD
 
-file_cast='Data\Movies\MoviesCastingRaw-small.csv'
-file_details='Data\Movies\SmallMoviesDetailsCleaned.csv'
-=======
 file_cast=config.file_dir+'\Data\Movies\MoviesCastingRaw-small.csv'
 file_details=config.file_dir+'\Data\Movies\SmallMoviesDetailsCleaned.csv'
->>>>>>> 0a5cf97deb66fad48fd4a61ad8e3d32479840b5c
 
 
 
@@ -60,6 +55,7 @@ file_details=config.file_dir+'\Data\Movies\SmallMoviesDetailsCleaned.csv'
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
 def printMenu():
     print('Bienvenido')
     print('1- Cargar datos.')

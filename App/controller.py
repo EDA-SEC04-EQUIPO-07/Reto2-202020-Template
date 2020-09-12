@@ -36,12 +36,14 @@ es decir contiene los modelos con los datos en memoria
 #______________________________________________________
 # API del TAD Catalogo de peliculas
 #______________________________________________________
+
 def initCatalog():
     """
     Inicia un catalgo
     """
     catalog=md.newCatalog()
     return catalog
+
 #______________________________________________________
 # Funciones para agregar informacion al catalogo
 #______________________________________________________
@@ -55,9 +57,19 @@ def loadDatarow(catalog, file, info):
     for movie in data_row:
         md.addMovie(catalog, movie, info)
 
+def loadDataDetails(catalog, file, info):
+    """
+    Carga los datos de las peliculas en el mapa
+    """
+    file_a= config.file_dir + file
+    data_Details= csv.DictReader(open(file_a))
+    for movie in data_Details:
+        md.addMovie(catalog, movie, info)
+
 #______________________________________________________
 # Funciones de consulta
 #______________________________________________________
+
 def getFirtsLastMovies(catalog):
     """
     Retorna los primeros valores de la primera y ultima llave.

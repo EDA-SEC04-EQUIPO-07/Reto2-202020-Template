@@ -45,13 +45,13 @@ recae sobre el controlador.
 # API del TAD Catalogo de peliculas
 # -----------------------------------------------------
 
- def initList():
+def initList():
      """
      Inicia la primera lista
      """
     lst=ct.initCatalog()
     return lst
-    
+
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
@@ -255,6 +255,8 @@ def addCountry(country_name, movie, catalog):
 # ___________________________________________________
 #  Funciones generales implementadas
 # ___________________________________________________
+
+
 def getFirstLastMovies(catalog):
     """
     Retorna el primer y ultimo libro de la lista.
