@@ -68,24 +68,9 @@ def loadDataDetails(catalog, file, info):
     data_Details= csv.DictReader(open(file_Details))
     for movie in data_Details:
         md.addMovie(catalog, movie, info)
-
-
-#______________________________________________________
-# Funciones para agregar informacion al catalogo
-#______________________________________________________
-
-
 #______________________________________________________
 # Funciones de consulta
 #______________________________________________________
-
-def getFirstLastMovies(catalog):
-    """
-    Retorna el primer y ultimo libro de la lista.
-    """
-    first_movie=lt.firstElement(catalog)
-    last_movie=lt.lastElement(catalog)
-    return (first_movie, last_movie)
 
 
 #______________________________________________________
