@@ -26,7 +26,7 @@ from DISClib.ADT import map as mp
 from DISClib.DataStructures import listiterator as it
 from DISClib.DataStructures import liststructure as lt
 from DISClib.DataStructures import mapentry as me
-
+import csv
 
 
 """
@@ -40,30 +40,50 @@ recae sobre el controlador.
 # -----------------------------------------------------
 # API del TAD Catalogo de peliculas
 # -----------------------------------------------------
+def newlist():
+    """
+    Crea una lista vacia.
+    """
+    lst=lt.newList
+    return lst
 
-def newCatalog():
+
+def loadCSVFile (file, lst):
+    lst=lt.newList(datastructure="ARRAY_LIST")
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    try:
+        with open( file, encoding="utf-8") as csvfile:
+            row = csv.DictReader(csvfile, dialect=dialect)
+            for elemento in row: 
+                lt.addLast(lst,elemento)
+    except:
+        print("Hubo un error con la carga del archivo")
+    return lst
+
+def newCatalog(lst1, lst2):
     """
     Crea un nuevo catalogo.
     """
     Data={'casting': None, 'details': None}
     catalog={ 'Data': Data, 'production_companies': None, 'director_name': None, 'actor_name': None,'genres':None, 'production_countries': None}
 
-    catalog['Data']['casting']=lt.newList(datastructure='ARRAY_LIST')
-    catalog['Data']['details']=lt.newList(datastructure='ARRAY_LIST')
+    catalog['Data']['casting']=lst1
+    catalog['Data']['details']=lst2
 
-    catalog['production_companies']=mp.newMap(numelements=(countBy('production_companies', catalog['Data']['details'])),
+    catalog['production_companies']=mp.newMap(numelements=2000,
                                         maptype='CHAINING',
                                         loadfactor=0.4)
-    catalog['director_name']=mp.newMap(numelements=countBy('director_name',catalog['Data']['casting']), 
+    catalog['director_name']=mp.newMap(numelements=2000, 
                                         maptype='PROBING', 
                                         loadfactor=0.4)
     #catalog['actor_name']=mp.newMap(numelements=(countBy('actor_name',catalog['Data']['casting'])), 
                                         #maptype='PROBING', 
                                         #loadfactor=0.4)#Necesita mejoras, acceder a los actores
-    catalog['genres']=mp.newMap(numelements=(countBy('genres', catalog['Data']['details'])), 
+    catalog['genres']=mp.newMap(numelements=2000, 
                                         maptype='PROBING', 
                                         loadfactor=0.4)
-    catalog['production_countries']=mp.newMap(numelements=(countBy('production_countries', catalog['Data']['details'])), 
+    catalog['production_countries']=mp.newMap(numelements=2000, 
                                         maptype='PROBING', 
                                         loadfactor=0.4)
     return catalog 
@@ -228,9 +248,9 @@ def addCountry(country_name, movie, catalog):
     avg_ct=country['vote_avg']
     avg_mv=movie['vote_average']
     if avg_ct == None:
-        genre['vote_avg']=float(avg_mv)
+        country['vote_avg']=float(avg_mv)
     else:
-        genre['vote_avg']= round(((avg_ct+ float(avg_mv))/2),2)
+        country['vote_avg']= round(((avg_ct+ float(avg_mv))/2),2)
 
 
 # ==============================

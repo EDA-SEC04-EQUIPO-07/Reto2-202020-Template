@@ -37,19 +37,31 @@ es decir contiene los modelos con los datos en memoria
 # Inicializacion del Catalogo
 #______________________________________________________
 
-def initCatalog():
+def initCatalog(lst1, lst2):
     """
     Llama la funcion de inicializacion del catalogo del modelo.
     """
     # catalog es utilizado para interactuar con el modelo
-    catalog = md.newCatalog()
+    catalog = md.newCatalog(lst1, lst2)
     return catalog
 
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
-
+def initlist():
+    """
+    Crea una lista nueva.
+    """
+    lst=md.newlist()
+    return lst
+def loadlist(file, lst):
+    """
+    Carga elementos en una lista
+    """
+    file= config.file_dir + file
+    lst=md.loadCSVFile(file, lst)
+    return lst
 
 def loadDataCast(catalog, file):
     """
