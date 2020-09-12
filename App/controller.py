@@ -50,6 +50,12 @@ def initCatalog():
 #  de datos en los modelos
 # ___________________________________________________
 
+def loadData(catalog, file_details, tagsfile):
+    """
+    Carga los datos de los archivos en el modelo
+    """
+    loadDataDetails(catalog, file_details)
+    loadDatarow(catlog, file_cast)
 
 def loadDatarow(catalog, file, info):
     """

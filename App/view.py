@@ -25,7 +25,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import arraylist
 from DISClib.DataStructures import listiterator as it
-import controller as cn
+from App import controller
 assert config
 
 """
@@ -65,14 +65,16 @@ def printMenu():
 while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
-    lst1=cn.initCatalog()
-    lst2=cn.initCatalog()
+    lst1=controller.initCatalog()
+    lst2=controller.initCatalog()
+
     if inputs[0]=='1':
         print('caragndo datos...')
-        lst1=md.loadDatarow(lst1, file_cast)
-        lst2=md.loadDataDetails(lst2, file_details)
+        lst1=controller.loadDatarow(lst1, file_cast)
+        lst2=controller.loadDataDetails(lst2, file_details)
         print('La longitud de los datos es:\"',arraylist.size(lst1) ,'\"')
         print('La longitud de los datos es:\"',arraylist.size(lst2) ,'\"') 
+
     elif inputs[0]== '2':
         (first,last)=md.getFirstLastMovies(lst2)
         print('La cantidad total de peliculas es:', arraylist.size(lst2))
@@ -82,6 +84,7 @@ while True:
         print('La ultima pelicula es: ')
         for data in last:
             print(data)
+            
     else:
         sys.exit(0)
 sys.exit(0)
