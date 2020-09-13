@@ -286,14 +286,11 @@ def countBy(criteria, lst):
     """
     number=0
     names=[]
-<<<<<<< HEAD
     for element in lst:
         if element[criteria] not in names:
             number=+1
             names.appende(element[criteria])
     return number
-
-=======
     iterator=it.newIterator
     while it.hasNext(iterator):
         movie=it.next(iterator)
@@ -302,4 +299,4 @@ def countBy(criteria, lst):
             number+=1
             names.append(value)
     return number
->>>>>>> 598ef0e1365279736cdd08d1abfe74f34809fc8f
+
