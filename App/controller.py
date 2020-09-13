@@ -33,11 +33,31 @@ es decir contiene los modelos con los datos en memoria
 
 """
 
+
+#______________________________________________________
+# Funcion 0
+#______________________________________________________
+
+def initlist():
+    """
+    Crea una lista nueva.
+    """
+    lst=md.newlist()
+    return lst
+
+def loadlist(file, lst):
+    """
+    Carga elementos en una lista
+    """
+    file= config.file_dir + file
+    lst=md.loadCSVFile(file, lst)
+    return lst
+
 #______________________________________________________
 # Inicializacion del Catalogo
 #______________________________________________________
 
-def initCatalog():
+def initCatalog():#no necesita revision
     """
     Llama la funcion de inicializacion del catalogo del modelo.
     """
@@ -50,42 +70,31 @@ def initCatalog():
 #  de datos en los modelos
 # ___________________________________________________
 
+#por terminar
 
-def loadDataCast(catalog, file, info):
+def loadDataCast(catalog, file):
     """
     Carga los datos de las peliculas en el mapa
     """
-    file_Cast= config.file_dir + file
-    data_Cast= csv.DictReader(open(file_Cast))
-    for movie in data_Cast:
-        md.addMovie(catalog, movie, info)
+    file= config.file_dir + file
+    with open(file, encoding="utf-8") as movies:
+        data_row=csv.DictReader(movies)
+        for movie in data_row:
+            md.addMovie(catalog, movie, info=1)
 
-def loadDataDetails(catalog, file, info):
+def loadDataDetails(catalog, file):
     """
     Carga los datos de las peliculas en el mapa
-    """
-    file_Details= config.file_dir + file
-    data_Details= csv.DictReader(open(file_Details))
-    for movie in data_Details:
-        md.addMovie(catalog, movie, info)
-
-
-#______________________________________________________
-# Funciones para agregar informacion al catalogo
-#______________________________________________________
-
+    """    
+    file= config.file_dir + file
+    with open(file, encoding="utf-8") as movies:
+        data_row=csv.DictReader(movies)
+        for movie in data_row:
+            md.addMovie(catalog, movie, info=2)
 
 #______________________________________________________
 # Funciones de consulta
 #______________________________________________________
-
-def getFirstLastMovies(catalog):
-    """
-    Retorna el primer y ultimo libro de la lista.
-    """
-    first_movie=lt.firstElement(catalog)
-    last_movie=lt.lastElement(catalog)
-    return (first_movie, last_movie)
 
 
 #______________________________________________________

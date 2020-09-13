@@ -20,13 +20,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+#______________________________________________________
+# Imports
+#______________________________________________________
+
+
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import listiterator as it
 from DISClib.DataStructures import liststructure as lt
 from DISClib.DataStructures import mapentry as me
-
+import csv
 
 
 """
@@ -37,9 +42,33 @@ del modelo en una sola respuesta. Esta responsabilidad
 recae sobre el controlador.
 """
 
-# -----------------------------------------------------
+#______________________________________________________
+# Funcion 0
+#______________________________________________________
+
+def newlist():
+    """
+    Crea una lista vacia.
+    """
+    lst=lt.newList
+    return lst
+
+def loadCSVFile (file, lst):
+    lst=lt.newList(datastructure="ARRAY_LIST")
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    try:
+        with open( file, encoding="utf-8") as csvfile:
+            row = csv.DictReader(csvfile, dialect=dialect)
+            for elemento in row: 
+                lt.addLast(lst,elemento)
+    except:
+        print("Hubo un error con la carga del archivo")
+    return lst
+
+#______________________________________________________
 # API del TAD Catalogo de peliculas
-# -----------------------------------------------------
+#______________________________________________________
 
 def newCatalog():
     """
@@ -51,23 +80,22 @@ def newCatalog():
     catalog['Data']['casting']=lt.newList(datastructure='ARRAY_LIST')
     catalog['Data']['details']=lt.newList(datastructure='ARRAY_LIST')
 
-    catalog['production_companies']=mp.newMap(numelements=(countBy('production_companies', catalog['Movies'])),
-                                        maptype='CHAINING',
+    catalog['production_companies']=mp.newMap(numelements=2000,
+                                        maptype='PROBING',
                                         loadfactor=0.4)
-    catalog['director_name']=mp.newMap(numelements=countBy('director_name',catalog['Movies']), 
+    catalog['director_name']=mp.newMap(numelements=2000, 
                                         maptype='PROBING', 
                                         loadfactor=0.4)
-    catalog['actor_name']=mp.newMap(numelements=(countBy('actor_name',catalog['Movies'])), 
+    #catalog['actor_name']=mp.newMap(numelements=(countBy('actor_name',catalog['Data']['casting'])), 
+                                        #maptype='PROBING', 
+                                        #loadfactor=0.4)#Necesita mejoras, acceder a los actores
+    catalog['genres']=mp.newMap(numelements=2000, 
                                         maptype='PROBING', 
                                         loadfactor=0.4)
-    catalog['genres']=mp.newMap(numelements=(countBy('genres', catalog['Movies'])), 
+    catalog['production_countries']=mp.newMap(numelements=2000, 
                                         maptype='PROBING', 
                                         loadfactor=0.4)
-    catalog['production_countries']=mp.newMap(numelements=(countBy('production_countries', catalog['Movies'])), 
-                                        maptype='PROBING', 
-                                        loadfactor=0.4)
-
-
+    return catalog 
 
 def newComopanies(company_name):
     """
@@ -115,18 +143,18 @@ def newCountry(country_name):
     return country
 
 
-# -----------------------------------------------------
+#______________________________________________________
 # Funciones para agregar informacion al catalogo
-# ------------------------------------------
+#______________________________________________________
 
 def addMovie(catalog, movie, info):
     """
     Agregar una pelicula.
     """
-    if info == '1':
+    if info == 1:
         movies=catalog['Data']['casting']
         lt.addLast(movies, movie)
-    elif info =='2':
+    elif info ==2:
         movies=catalog['Data']['details']
         lt.addLast(movies, movie)
 
@@ -227,14 +255,14 @@ def addCountry(country_name, movie, catalog):
     avg_ct=country['vote_avg']
     avg_mv=movie['vote_average']
     if avg_ct == None:
-        genre['vote_avg']=float(avg_mv)
+        country['vote_avg']=float(avg_mv)
     else:
-        genre['vote_avg']= round(((avg_ct+ float(avg_mv))/2),2)
+        country['vote_avg']= round(((avg_ct+ float(avg_mv))/2),2)
 
 
-# ==============================
+#______________________________________________________
 # Funciones de consulta
-# ==============================
+#______________________________________________________
 
 def getFirstLastMovies(catalog):
     """
@@ -258,9 +286,20 @@ def countBy(criteria, lst):
     """
     number=0
     names=[]
+<<<<<<< HEAD
     for element in lst:
         if element[criteria] not in names:
             number=+1
             names.appende(element[criteria])
     return number
 
+=======
+    iterator=it.newIterator
+    while it.hasNext(iterator):
+        movie=it.next(iterator)
+        value=movie[criteria]
+        if value not in names:
+            number+=1
+            names.append(value)
+    return number
+>>>>>>> 598ef0e1365279736cdd08d1abfe74f34809fc8f
