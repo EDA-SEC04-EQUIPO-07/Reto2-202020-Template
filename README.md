@@ -30,3 +30,7 @@ Este directorio contiene todo el código de base que se entrega para el funciona
 -Test
 Este directorio contiene las pruebas realizadas a los TADs, Estructuras de Datos y Algoritmos.
 
+# datos integrantes
+Frank Worman García Eslava -fw.garcia@uniandes.edu.co -201912534 
+Laura Vanessa Martinez Prieto -l.martinezp@uniandes.edu.co -202012624 
+Sebastian Alberto Umaña Peinado -s.umanap@uniandes.edu.co -202013778

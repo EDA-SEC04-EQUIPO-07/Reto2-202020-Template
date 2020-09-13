@@ -23,6 +23,7 @@
 import sys
 import config
 from DISClib.ADT import list as lt
+from DISClib.DataStructures import arraylist
 from DISClib.DataStructures import listiterator as it
 from App import controller
 assert config
@@ -38,8 +39,9 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-booksfile = 'GoodReads/books-small.csv'
-tagsfile = 'GoodReads/tags.csv'
+file_cast=config.file_dir+'\Data\Movies\MoviesCastingRaw-small.csv'
+file_details=config.file_dir+'\Data\Movies\SmallMoviesDetailsCleaned.csv'
+
 
 
 # ___________________________________________________
@@ -53,3 +55,36 @@ tagsfile = 'GoodReads/tags.csv'
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+def printMenu():
+    print('Bienvenido')
+    print('1- Cargar datos.')
+    print('2- Consultar la ultima y primera pelicula.')
+    print('0- Salir')
+
+while True:
+    printMenu()
+    inputs = input('Seleccione una opción para continuar\n')
+    lst1=controller.initCatalog()
+    lst2=controller.initCatalog()
+
+    if inputs[0]=='1':
+        print('caragndo datos...')
+        lst1=controller.loadDataCast(lst1, file_cast)
+        lst2=controller.loadDataDetails(lst2, file_details)
+        print('La longitud de los datos es:\"',arraylist.size(lst1) ,'\"')
+        print('La longitud de los datos es:\"',arraylist.size(lst2) ,'\"') 
+
+    elif inputs[0]== '2':
+        (first,last)=md.getFirstLastMovies(lst2)
+        print('La cantidad total de peliculas es:', arraylist.size(lst2))
+        print('La primera pelicula es: ')
+        for data in first:
+            print(data)
+        print('La ultima pelicula es: ')
+        for data in last:
+            print(data)
+
+    else:
+        sys.exit(0)
+sys.exit(0)
