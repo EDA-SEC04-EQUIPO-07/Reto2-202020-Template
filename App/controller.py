@@ -23,6 +23,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
+from DISClib.DataStructures import listiterator as it
 import model as md
 assert config
 import csv
@@ -93,7 +94,7 @@ def loadDataDetails(catalog, file):
     for movie in input_file:
         md.addMovie(catalog, movie, info=2)
 
-def addElementsmaps(catalog, file):
+def addElementsmapsDetails(catalog, file):
     """
     Carga los elementos de los mapas desde las listas.
     """
@@ -102,18 +103,37 @@ def addElementsmaps(catalog, file):
     dialect.delimiter=";"
     input_file=csv.DictReader(open(file, encoding="utf-8"), dialect=dialect)
     for movie in input_file:
-        companies=movie['production_companies']
-        for company in companies:
-            md.addCompany(company, movie, catalog)
+        md.addCompany(movie, catalog)
+        md.addGenre(movie, catalog)
+        md.addCountry(movie, catalog)
 
 #______________________________________________________
 # Funciones de consulta
 #______________________________________________________
 
-
+def getCompany(catalog, company):
+    """
+    Busca la productora en el mapa de productoras del catalogo.
+    """
+    value=md.getElementCriteria(catalog, 'production_companies', company)
+    try:
+        movies=value['movies']
+        lst=[]
+        iterator=it.newIterator(movies)
+        while it.hasNext(iterator):
+            movie=it.next(iterator)
+            movie_name=movie['title']
+            lst.append(movie_name)
+        avg=value['vote_avg']
+        size=lt.size(movies)
+        return (lst, avg, size)
+    except:
+        return None
+        
 #______________________________________________________
 # Funciones de Comparacion
 #______________________________________________________
+
 def cmpfunctionCompanies(element1, entry):
     """
     Compara dos compañias.
@@ -122,6 +142,54 @@ def cmpfunctionCompanies(element1, entry):
     if (element1 == company):
         return 0
     elif (element1 > company):
+        return 1
+    else:
+        return -1
+
+def cmpfunctionDirectors(element1, entry):
+    """
+    Compara dos compañias.
+    """
+    Director = me.getKey(entry)
+    if (element1 == Director):
+        return 0
+    elif (element1 > Director):
+        return 1
+    else:
+        return -1
+
+def cmpfunctionActor(element1, entry):
+    """
+    Compara dos compañias.
+    """
+    Actor = me.getKey(entry)
+    if (element1 == Actor):
+        return 0
+    elif (element1 > Actor):
+        return 1
+    else:
+        return -1
+
+def cmpfunctionGenres(element1, entry):
+    """
+    Compara dos compañias.
+    """
+    genre = me.getKey(entry)
+    if (element1 == genre):
+        return 0
+    elif (element1 > genre):
+        return 1
+    else:
+        return -1
+
+def cmpfunctionCountry(element1, entry):
+    """
+    Compara dos compañias.
+    """
+    country = me.getKey(entry)
+    if (element1 == country):
+        return 0
+    elif (element1 > country):
         return 1
     else:
         return -1

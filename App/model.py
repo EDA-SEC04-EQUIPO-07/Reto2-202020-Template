@@ -87,32 +87,35 @@ def newCatalog(lst1, lst2):
                                         comparefunction=ct.cmpfunctionCompanies)
     catalog['director_name']=mp.newMap(numelements=(countBy('director_name',catalog['Data']['casting'])), 
                                         maptype='PROBING', 
-                                        loadfactor=0.4)
+                                        loadfactor=0.4,
+                                        comparefunction=ct.cmpfunctionDirectors)
     #catalog['actor_name']=mp.newMap(numelements=(countBy('actor_name',catalog['Data']['casting'])), 
                                         #maptype='PROBING', 
                                         #loadfactor=0.4)#Necesita mejoras, acceder a los actores
     catalog['genres']=mp.newMap(numelements=(countBy('genres',catalog['Data']['details'])), 
                                         maptype='PROBING', 
-                                        loadfactor=0.4)
+                                        loadfactor=0.4,
+                                        comparefunction=ct.cmpfunctionGenres)
     catalog['production_countries']=mp.newMap(numelements=(countBy('production_countries',catalog['Data']['details'])), 
                                         maptype='PROBING', 
-                                        loadfactor=0.4)
+                                        loadfactor=0.4,
+                                        comparefunction=ct.cmpfunctionCountry)
     return catalog 
 
 def newComopanies(company_name):
     """
     Crea un nuevo elemento de las compañias. 
     """
-    company={'name': '', 'movies':None, 'vote_avg': None}
+    company={'name': None, 'movies':None, 'vote_avg': None}
     company['name']=company_name
-    company['movies']=lt.newList(datastructure='ARRAY_LIST')
+    company['movies']=lt.newList(datastructure='ARRAY_LIST', cmpfunction=ct.cmpfunctionCompanies)
     return company
 
 def newDirector(director_name):
     """
     Crea un nuevo elemento de los directores.
     """
-    director={'name':'', 'movies': None, 'vote_avg': None}
+    director={'name': None, 'movies': None, 'vote_avg': None}
     director['name']=director_name
     director['movies']=lt.newList(datastructure='ARRAY_LIST')
     return director
@@ -121,7 +124,7 @@ def newActor(actor_name):
     """
     Crea un nuevo elemento de los actores.
     """
-    actor={'name': '', 'movies': None, 'vote_avg': None}
+    actor={'name': None, 'movies': None, 'vote_avg': None}
     actor['name']=actor_name
     actor['movies']=lt.newList(datastructure='ARRAY_LIST')
     return actor 
@@ -130,7 +133,7 @@ def newGenre(genre_name):
     """
     Crea un nuevo elemento de generos.
     """
-    genre={'name': '', 'movies': None, 'vote_avg': None}
+    genre={'name': None, 'movies': None, 'vote_avg': None}
     genre['name']=genre_name
     genre['movies']=lt.newList(datastructure='ARRAY_LIST')
     return genre
@@ -160,11 +163,12 @@ def addMovie(catalog, movie, info):
         movies=catalog['Data']['details']
         lt.addLast(movies, movie)
 
-def addCompany(company_name, movie,catalog):
+def addCompany(movie,catalog):
     """
     Agrega una nueva compañia al mapa de productoras
     """
     companies=catalog['production_companies']
+    company_name=movie['production_companies']
     exist=mp.contains(companies, company_name)
     if exist:
         entry=mp.get(companies, company_name)
@@ -180,11 +184,13 @@ def addCompany(company_name, movie,catalog):
     else:
         company['vote_avg']= round(((avg_cp+ float(avg_mv))/2),2)    
 
-def addDirector(director_name, movie,catalog):
+def addDirector(movie,catalog):
     """
     Agrega informacion de un director en el mapa de directores.
     """
+    print(movie)
     directors=catalog['director_name']
+    director_name=movie['director_name']
     exist=mp.contains(directors, director_name)
     if exist:
         entry=mp.get(directors, director_name)
@@ -200,11 +206,12 @@ def addDirector(director_name, movie,catalog):
     else:
         director['vote_avg']= round(((avg_dc+ float(avg_mv))/2),2)
 
-def addActor(actor_name, movie, catalog):
+def addActor(movie, catalog):
     """
     Agrega informacion de un actor en el mapa de actores.
     """
-    actors=catalog['director_name']
+    actors=catalog['actor_name']
+    actor_name=movie['actor_name']
     exist=mp.contains(actors, actor_name)
     if exist:
         entry=mp.get(actors, actor_name)
@@ -220,11 +227,12 @@ def addActor(actor_name, movie, catalog):
     else:
         actor['vote_avg']= round(((avg_at+ float(avg_mv))/2),2)
 
-def addGenre(genre_name, movie, catalog):
+def addGenre(movie, catalog):
     """
     Agrega informacion de un genero en el mapa de generos.
     """
-    genres=catalog['genre']
+    genres=catalog['genres']
+    genre_name=movie['genres']
     exist=mp.contains(genres, genre_name)
     if exist:
         entry=mp.get(genres, genre_name)
@@ -240,11 +248,12 @@ def addGenre(genre_name, movie, catalog):
     else:
         genre['vote_avg']= round(((avg_gn+ float(avg_mv))/2),2)
 
-def addCountry(country_name, movie, catalog):
+def addCountry(movie, catalog):
     """
     Agrega informacion de un país en el mapa de un país.
     """
     countries=catalog['production_countries']
+    country_name=movie['production_countries']
     exist=mp.contains(countries, country_name)
     if exist:
         entry=mp.get(countries, country_name)
@@ -266,7 +275,7 @@ def addCountry(country_name, movie, catalog):
 # Funciones de consulta
 #______________________________________________________
 
-#def getElementCriterias(criteria, lts):
+def getElementCriterias(criteria, lst):
     """
     Busca los elementos de una lista de acuerdo a un criterio.
     """
@@ -296,3 +305,16 @@ def countBy(criteria, lst):
             number+=1
             names.append(value)
     return number
+
+def getElementCriteria(catalog, criteria, key):
+    """
+    Busca los elementos de un map deacuerdo a un cirterio.
+    """
+    value= None
+    if criteria == 'production_companies':
+        if mp.contains(catalog['production_companies'], key):  
+            entry=mp.get(catalog['production_companies'], key)
+            value=me.getValue(entry)
+        else:
+            print('La llave no esta en el map')
+    return value
