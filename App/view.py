@@ -82,7 +82,7 @@ def menu():
         elif inputs[0]=='2':
             company=input('Ingrese el nombre de la productora de cine:\n')
             (movies, avg, size)=ct.getCompany(catalog, company)
-            print('La compañia \"', company,'\" tiene un total de peliculas', str(size))
+            print('La compañia \"', company,'\" tiene un total de peliculas: ', str(size))
             print('Las peliculas son: ')
             for movie in movies:
                 print(movie)
