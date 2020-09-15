@@ -278,7 +278,7 @@ def countBy(criteria, lst):
     """
     number=0
     names=[]
-    iterator=it.newIterator
+    iterator=it.newIterator(lst)
     while it.hasNext(iterator):
         movie=it.next(iterator)
         value=movie[criteria]
