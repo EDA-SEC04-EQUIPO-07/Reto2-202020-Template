@@ -63,11 +63,15 @@ def printMenu():
 while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
-    catalog=ct.initCatalog()
+    lst1=ct.initlist()
+    lst2=ct.initlist()
+    catalog=None
     if inputs[0]=='1':
         print('caragndo datos...')
-        ct.loadDataCast(catalog, file_cast)
-        ct.loadDataDetails(catalog, file_details)
+        lst1=ct.loadlist(file_cast, lst1)
+        lst2=ct.loadlist(file_details, lst2)
+        catalog=ct.initCatalog(lst1, lst2)
+        ct.addElementsmaps(catalog, file_details)
         print('La longitud de los datos es:\"',arraylist.size(catalog['Data']['details']) ,'\"')
         print('La longitud de los datos es:\"',arraylist.size(catalog['Data']['casting']) ,'\"') 
 

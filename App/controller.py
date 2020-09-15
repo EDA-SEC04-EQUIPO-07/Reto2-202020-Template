@@ -47,7 +47,7 @@ def initlist():
 
 def loadlist(file, lst):
     """
-    Carga elementos en una lista
+    Carga elementos en una lista.
     """
     file= config.file_dir + file
     lst=md.loadCSVFile(file, lst)
@@ -57,12 +57,12 @@ def loadlist(file, lst):
 # Inicializacion del Catalogo
 #______________________________________________________
 
-def initCatalog():#no necesita revision
+def initCatalog(lst1,lst2):#no necesita revision
     """
     Llama la funcion de inicializacion del catalogo del modelo.
     """
     # catalog es utilizado para interactuar con el modelo
-    catalog = md.newCatalog()
+    catalog = md.newCatalog(lst1, lst2)
     return catalog
 
 # ___________________________________________________
@@ -74,7 +74,7 @@ def initCatalog():#no necesita revision
 
 def loadDataCast(catalog, file):
     """
-    Carga los datos de las peliculas en el mapa
+    Carga los datos de las peliculas en el mapa.
     """
     file= config.file_dir + file
     with open(file, encoding="utf-8") as movies:
@@ -84,13 +84,27 @@ def loadDataCast(catalog, file):
 
 def loadDataDetails(catalog, file):
     """
-    Carga los datos de las peliculas en el mapa
+    Carga los datos de las peliculas en el mapa.
     """    
     file= config.file_dir + file
-    with open(file, encoding="utf-8") as movies:
-        data_row=csv.DictReader(movies)
-        for movie in data_row:
-            md.addMovie(catalog, movie, info=2)
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    input_file=csv.DictReader(open(file, encoding="utf-8"), dialect=dialect)
+    for movie in input_file:
+        md.addMovie(catalog, movie, info=2)
+
+def addElementsmaps(catalog, file):
+    """
+    Carga los elementos de los mapas desde las listas.
+    """
+    file= config.file_dir + file
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    input_file=csv.DictReader(open(file, encoding="utf-8"), dialect=dialect)
+    for movie in input_file:
+        companies=movie['production_companies']
+        for company in companies:
+            md.addCompany(company, movie, catalog)
 
 #______________________________________________________
 # Funciones de consulta
@@ -100,6 +114,17 @@ def loadDataDetails(catalog, file):
 #______________________________________________________
 # Funciones de Comparacion
 #______________________________________________________
+def cmpfunctionCompanies(element1, entry):
+    """
+    Compara dos compañias.
+    """
+    company = me.getKey(entry)
+    if (element1 == company):
+        return 0
+    elif (element1 > company):
+        return 1
+    else:
+        return -1
 
 
 # ___________________________________________________

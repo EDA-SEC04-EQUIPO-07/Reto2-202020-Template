@@ -31,6 +31,7 @@ from DISClib.ADT import map as mp
 from DISClib.DataStructures import listiterator as it
 from DISClib.DataStructures import liststructure as lt
 from DISClib.DataStructures import mapentry as me
+import controller as ct
 import csv
 
 
@@ -70,29 +71,30 @@ def loadCSVFile (file, lst):
 # API del TAD Catalogo de peliculas
 #______________________________________________________
 
-def newCatalog():
+def newCatalog(lst1, lst2):
     """
     Crea un nuevo catalogo.
     """
     Data={'casting': None, 'details': None}
     catalog={ 'Data': Data, 'production_companies': None, 'director_name': None, 'actor_name': None,'genres':None, 'production_countries': None}
 
-    catalog['Data']['casting']=lt.newList(datastructure='ARRAY_LIST')
-    catalog['Data']['details']=lt.newList(datastructure='ARRAY_LIST')
+    catalog['Data']['casting']=lst1
+    catalog['Data']['details']=lst2
 
-    catalog['production_companies']=mp.newMap(numelements=2000,
+    catalog['production_companies']=mp.newMap(numelements=(countBy('production_companies',catalog['Data']['details'])),
                                         maptype='PROBING',
-                                        loadfactor=0.4)
-    catalog['director_name']=mp.newMap(numelements=2000, 
+                                        loadfactor=0.4, 
+                                        comparefunction=ct.cmpfunctionCompanies)
+    catalog['director_name']=mp.newMap(numelements=(countBy('director_name',catalog['Data']['casting'])), 
                                         maptype='PROBING', 
                                         loadfactor=0.4)
     #catalog['actor_name']=mp.newMap(numelements=(countBy('actor_name',catalog['Data']['casting'])), 
                                         #maptype='PROBING', 
                                         #loadfactor=0.4)#Necesita mejoras, acceder a los actores
-    catalog['genres']=mp.newMap(numelements=2000, 
+    catalog['genres']=mp.newMap(numelements=(countBy('genres',catalog['Data']['details'])), 
                                         maptype='PROBING', 
                                         loadfactor=0.4)
-    catalog['production_countries']=mp.newMap(numelements=2000, 
+    catalog['production_countries']=mp.newMap(numelements=(countBy('production_countries',catalog['Data']['details'])), 
                                         maptype='PROBING', 
                                         loadfactor=0.4)
     return catalog 
@@ -103,7 +105,7 @@ def newComopanies(company_name):
     """
     company={'name': '', 'movies':None, 'vote_avg': None}
     company['name']=company_name
-    company_name['movies']=lt.newList(datastructure='ARRAY_LIST')
+    company['movies']=lt.newList(datastructure='ARRAY_LIST')
     return company
 
 def newDirector(director_name):
@@ -263,6 +265,14 @@ def addCountry(country_name, movie, catalog):
 #______________________________________________________
 # Funciones de consulta
 #______________________________________________________
+
+#def getElementCriterias(criteria, lts):
+    """
+    Busca los elementos de una lista de acuerdo a un criterio.
+    """
+    iterator=it.newIterator(lst)
+    while it.hasNext(iterator):
+        movie=it.next(iterator)
 
 def getFirstLastMovies(catalog):
     """
