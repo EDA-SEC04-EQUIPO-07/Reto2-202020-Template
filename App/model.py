@@ -284,26 +284,12 @@ def getFirstLastMovies(catalog):
     last_movie=lt.lastElement(catalog)
     return (first_movie, last_movie)
 
-def getMoviesByCompanie (production_companie, catalog):
-    """
-    Retorna la lista de todas las películas producidas, el total de películas, el promedio de la calificación
-    de sus películas.
-    """
-    Companie = mp.get(catalog['production_companies'], production_companie)
-    avg= newComopanies(production_companie["vote_average"])
-
 def countBy(criteria, lst):
     """
-    cuenta la cantidad de elementos por un criterio.
+    cuenta la cantidad de elementos por un crterio.
     """
     number=0
     names=[]
-    for element in lst:
-        if element[criteria] not in names:
-            number=+1
-            names.append(element[criteria])
-    return number
-    iterator=it.newIterator
     iterator=it.newIterator(lst)
     while it.hasNext(iterator):
         movie=it.next(iterator)
@@ -312,7 +298,6 @@ def countBy(criteria, lst):
             number+=1
             names.append(value)
     return number
-
 
 def getElementCriteria(catalog, criteria, key):
     """
@@ -326,4 +311,3 @@ def getElementCriteria(catalog, criteria, key):
         else:
             print('La llave no esta en el map')
     return value
-
