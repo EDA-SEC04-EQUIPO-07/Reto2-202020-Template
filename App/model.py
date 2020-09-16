@@ -275,13 +275,6 @@ def addCountry(movie, catalog):
 # Funciones de consulta
 #______________________________________________________
 
-def getElementCriterias(criteria, lst):
-    """
-    Busca los elementos de una lista de acuerdo a un criterio.
-    """
-    iterator=it.newIterator(lst)
-    while it.hasNext(iterator):
-        movie=it.next(iterator)
 
 def getFirstLastMovies(catalog):
     """
