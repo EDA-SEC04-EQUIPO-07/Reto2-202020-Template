@@ -308,7 +308,7 @@ def countBy(criteria, lst):
     for element in lst:
         if element[criteria] not in names:
             number=+1
-            names.appende(element[criteria])
+            names.append(element[criteria])
     return number
     iterator=it.newIterator
     iterator=it.newIterator(lst)
