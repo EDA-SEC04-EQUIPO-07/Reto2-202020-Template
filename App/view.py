@@ -71,7 +71,7 @@ def menu():
     while True:
         printMenu()
         inputs = input('Seleccione una opción para continuar\n')
-        if inputs =='1':
+        if inputs[0]=='1':
             print('caragndo datos...')
             lst1=ct.loadlist(file_cast, lst1)
             lst2=ct.loadlist(file_details, lst2)
@@ -79,7 +79,7 @@ def menu():
             ct.addElementsmapsDetails(catalog, file_details)
             print('La longitud de los datos es:\"',arraylist.size(catalog['Data']['details']) ,'\"')
             print('La longitud de los datos es:\"',arraylist.size(catalog['Data']['casting']) ,'\"')
-        elif inputs =='2':
+        elif inputs[0]=='2':
             company=input('Ingrese el nombre de la productora de cine:\n')
             (movies, avg, size)=ct.getCompany(catalog, company)
             print('La compañia \"', company,'\" tiene un total de peliculas: ', str(size))
@@ -87,10 +87,10 @@ def menu():
             for movie in movies:
                 print(movie)
             print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\"')
-        elif inputs == '0':
+        elif inputs[0]== '0':
             sys.exit(0)
         else:
-            print('La opcion: \"', inputs,'\" no es correcta.\n')
+            print('La opcion: \"', inputs,'\" no es correcta.')
     sys.exit(0)
 
 menu()
