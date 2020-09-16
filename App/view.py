@@ -57,20 +57,40 @@ file_details='\Data\Movies\SmallMoviesDetailsCleaned.csv'
 def printMenu():
     print('Bienvenido')
     print('1- Cargar datos.')
-    print('2- Consultar la ultima y primera pelicula.')
+    print('2- Descubrir Productoras de cine.')
     print('0- Salir')
 
-while True:
-    printMenu()
-    inputs = input('Seleccione una opción para continuar\n')
-    catalog=ct.initCatalog()
-    if inputs[0]=='1':
-        print('caragndo datos...')
-        ct.loadDataCast(catalog, file_cast)
-        ct.loadDataDetails(catalog, file_details)
-        print('La longitud de los datos es:\"',arraylist.size(catalog['Data']['details']) ,'\"')
-        print('La longitud de los datos es:\"',arraylist.size(catalog['Data']['casting']) ,'\"') 
 
-    else:
-        sys.exit(0)
-sys.exit(0)
+def menu():
+    """
+    Inicia el menu del programa.
+    """
+    lst1=ct.initlist()
+    lst2=ct.initlist()
+    catalog=None
+    while True:
+        printMenu()
+        inputs = input('Seleccione una opción para continuar\n')
+        if inputs =='1':
+            print('caragndo datos...')
+            lst1=ct.loadlist(file_cast, lst1)
+            lst2=ct.loadlist(file_details, lst2)
+            catalog=ct.initCatalog(lst1, lst2)
+            ct.addElementsmapsDetails(catalog, file_details)
+            print('La longitud de los datos es:\"',arraylist.size(catalog['Data']['details']) ,'\"')
+            print('La longitud de los datos es:\"',arraylist.size(catalog['Data']['casting']) ,'\"')
+        elif inputs =='2':
+            company=input('Ingrese el nombre de la productora de cine:\n')
+            (movies, avg, size)=ct.getCompany(catalog, company)
+            print('La compañia \"', company,'\" tiene un total de peliculas: ', str(size))
+            print('Las peliculas son: ')
+            for movie in movies:
+                print(movie)
+            print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\"')
+        elif inputs == '0':
+            sys.exit(0)
+        else:
+            print('La opcion: \"', inputs,'\" no es correcta.\n')
+    sys.exit(0)
+
+menu()
