@@ -305,16 +305,13 @@ def countBy(criteria, lst):
     """
     number=0
     names=[]
-<<<<<<< HEAD
     for element in lst:
         if element[criteria] not in names:
             number=+1
             names.appende(element[criteria])
     return number
     iterator=it.newIterator
-=======
     iterator=it.newIterator(lst)
->>>>>>> b428c24fd71a6ff44573aaa7cfa2dbec985b422c
     while it.hasNext(iterator):
         movie=it.next(iterator)
         value=movie[criteria]
@@ -323,8 +320,7 @@ def countBy(criteria, lst):
             names.append(value)
     return number
 
-<<<<<<< HEAD
-=======
+
 def getElementCriteria(catalog, criteria, key):
     """
     Busca los elementos de un map deacuerdo a un cirterio.
@@ -337,4 +333,4 @@ def getElementCriteria(catalog, criteria, key):
         else:
             print('La llave no esta en el map')
     return value
->>>>>>> b428c24fd71a6ff44573aaa7cfa2dbec985b422c
+
