@@ -129,6 +129,27 @@ def getCompany(catalog, company):
         return (lst, avg, size)
     except:
         return None
+
+
+def getDirector(catalog, director):
+    """
+    Busca el director en el mapa de directores del catalogo.
+    """
+    value=md.getElementCriteria(catalog, 'director_name', director)
+    try:
+        movies=value['movies']
+        lst=[]
+        iterator=it.newIterator(movies)
+        while it.hasNext(iterator):
+            movie=it.next(iterator)
+            movie_name=movie['title']
+            lst.append(movie_name)
+        avg=value['vote_avg']
+        size=lt.size(movies)
+        return (lst, avg, size)
+    except:
+        return None
+
         
 #______________________________________________________
 # Funciones de Comparacion

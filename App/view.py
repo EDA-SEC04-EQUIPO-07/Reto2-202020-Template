@@ -58,6 +58,7 @@ def printMenu():
     print('Bienvenido')
     print('1- Cargar datos.')
     print('2- Descubrir Productoras de cine.')
+    print('3- Descubrir Director de cine.')
     print('0- Salir')
 
 
@@ -83,6 +84,14 @@ def menu():
             company=input('Ingrese el nombre de la productora de cine:\n')
             (movies, avg, size)=ct.getCompany(catalog, company)
             print('La compañia \"', company,'\" tiene un total de peliculas: ', str(size))
+            print('Las peliculas son: ')
+            for movie in movies:
+                print(movie)
+            print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\"')
+        elif inputs =='3':
+            director=input('Ingrese el nombre del director de cine:\n')
+            (movies, avg, size)=ct.getDirector(catalog, director)
+            print('El director \"', director,'\" dirigio un total de peliculas: ', str(size))
             print('Las peliculas son: ')
             for movie in movies:
                 print(movie)
