@@ -315,5 +315,5 @@ def getElementCriteria(catalog, criteria, key):
             entry=mp.get(catalog['director_name'], key)
             value=me.getValue(entry)
         else:
-            print('La llave no esta en el map')
+            print('La llave no esta en el map 1')
     return value
