@@ -108,7 +108,7 @@ def newComopanies(company_name):
     """
     company={'name': None, 'movies':None, 'vote_avg': None}
     company['name']=company_name
-    company['movies']=lt.newList(datastructure='ARRAY_LIST', cmpfunction=ct.cmpfunctionCompanies)
+    company['movies']=lt.newList(datastructure='SINGLE_LINKED', cmpfunction=ct.cmpfunctionCompanies)
     return company
 
 def newDirector(director_name):
@@ -117,7 +117,7 @@ def newDirector(director_name):
     """
     director={'name': None, 'movies': None, 'vote_avg': None}
     director['name']=director_name
-    director['movies']=lt.newList(datastructure='ARRAY_LIST')
+    director['movies']=lt.newList(datastructure='SINGLE_LINKED')
     return director
 
 def newActor(actor_name):
@@ -126,7 +126,7 @@ def newActor(actor_name):
     """
     actor={'name': None, 'movies': None, 'vote_avg': None}
     actor['name']=actor_name
-    actor['movies']=lt.newList(datastructure='ARRAY_LIST')
+    actor['movies']=lt.newList(datastructure='SINGLE_LINKED')
     return actor 
 
 def newGenre(genre_name):
@@ -135,7 +135,7 @@ def newGenre(genre_name):
     """
     genre={'name': None, 'movies': None, 'vote_avg': None}
     genre['name']=genre_name
-    genre['movies']=lt.newList(datastructure='ARRAY_LIST')
+    genre['movies']=lt.newList(datastructure='SINGLE_LINKED')
     return genre
 
 def newCountry(country_name):
@@ -144,7 +144,7 @@ def newCountry(country_name):
     """
     country={'name':None, 'movies':None, 'vote_avg': None}
     country['name']=country_name
-    country['movies']=lt.newList(datastructure='ARRAY_LIST')
+    country['movies']=lt.newList(datastructure='SINGLE_LINKED')
     return country
 
 
