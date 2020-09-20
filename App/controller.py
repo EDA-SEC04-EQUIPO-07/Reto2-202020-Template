@@ -115,7 +115,7 @@ def addElementsmapsCasting(catalog, file1, file2):
     details= addElementsmapsDetails(catalog, file2)
     dialect = csv.excel()
     dialect.delimiter=";"
-    input_file=csv.DictReader(open(file, encoding="utf-8"), dialect=dialect)
+    input_file=csv.DictReader(open(file1, encoding="utf-8"), dialect=dialect)
     for person in input_file:
         #md.addActor(person, details, catalog)
         md.addDirector(person, details, catalog)
