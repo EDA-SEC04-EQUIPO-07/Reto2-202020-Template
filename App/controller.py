@@ -107,6 +107,19 @@ def addElementsmapsDetails(catalog, file):
         md.addGenre(movie, catalog)
         md.addCountry(movie, catalog)
 
+def addElementsmapsCasting(catalog, file1, file2):
+    """
+    Carga los elementos de los mapas desde las listas.
+    """
+    file1= config.file_dir + file1
+    details= addElementsmapsDetails(catalog, file2)
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    input_file=csv.DictReader(open(file, encoding="utf-8"), dialect=dialect)
+    for person in input_file:
+        #md.addActor(person, details, catalog)
+        md.addDirector(person, details, catalog)
+
 #______________________________________________________
 # Funciones de consulta
 #______________________________________________________

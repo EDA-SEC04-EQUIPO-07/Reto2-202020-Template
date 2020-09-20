@@ -78,6 +78,7 @@ def menu():
             lst2=ct.loadlist(file_details, lst2)
             catalog=ct.initCatalog(lst1, lst2)
             ct.addElementsmapsDetails(catalog, file_details)
+            ct.addElementsmapsCasting(catalog,file_cast, file_details)
             print('La longitud de los datos es:\"',arraylist.size(catalog['Data']['details']) ,'\"')
             print('La longitud de los datos es:\"',arraylist.size(catalog['Data']['casting']) ,'\"')
         elif inputs =='2':

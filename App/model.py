@@ -184,23 +184,23 @@ def addCompany(movie,catalog):
     else:
         company['vote_avg']= round(((avg_cp+ float(avg_mv))/2),2)    
 
-def addDirector(movie,catalog):
+def addDirector(person, details, catalog):
     """
     Agrega informacion de un director en el mapa de directores.
     """
-    print(movie)
     directors=catalog['director_name']
-    director_name=movie['director_name']
+    director_name=person['director_name']
+    ID= person["id"]
     exist=mp.contains(directors, director_name)
     if exist:
         entry=mp.get(directors, director_name)
         director=me.getValue(entry)
     else:
-        director=newComopanies(director_name)
+        director=newDirector(director_name)
         mp.put(directors, director_name, director)
-    lt.addLast(director['movies'], movie)
+    lt.addLast(director['movies'], person)
     avg_dc=director['vote_avg']
-    avg_mv=movie['vote_average']
+    avg_mv=details['vote_average'][ID]
     if avg_dc == None:
         director['vote_avg']=float(avg_mv)
     else:
@@ -210,8 +210,8 @@ def addActor(movie, catalog):
     """
     Agrega informacion de un actor en el mapa de actores.
     """
-    actors=catalog['actor_name']
-    actor_name=movie['actor_name']
+    actors=catalog['actor1_name']
+    actor_name=movie["actor1_name"]
     exist=mp.contains(actors, actor_name)
     if exist:
         entry=mp.get(actors, actor_name)
