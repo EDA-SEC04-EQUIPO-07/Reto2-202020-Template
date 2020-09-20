@@ -310,4 +310,10 @@ def getElementCriteria(catalog, criteria, key):
             value=me.getValue(entry)
         else:
             print('La llave no esta en el map')
+    elif criteria == 'director_name':
+        if mp.contains(catalog['director_name'], key):  
+            entry=mp.get(catalog['director_name'], key)
+            value=me.getValue(entry)
+        else:
+            print('La llave no esta en el map')
     return value
