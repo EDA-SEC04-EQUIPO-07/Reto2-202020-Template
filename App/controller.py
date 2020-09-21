@@ -94,18 +94,25 @@ def loadDataDetails(catalog, file):
     for movie in input_file:
         md.addMovie(catalog, movie, info=2)
 
-def addElementsmapsDetails(catalog, file):
+def addElementsmapsDetails(catalog, file1, file2):
     """
-    Carga los elementos de los mapas desde las listas.
+    Carga los elementos de los mapas relacionados con los details.
     """
-    file= config.file_dir + file
+    file1= config.file_dir + file1
     dialect = csv.excel()
     dialect.delimiter=";"
-    input_file=csv.DictReader(open(file, encoding="utf-8"), dialect=dialect)
-    for movie in input_file:
-        md.addCompany(movie, catalog)
-        md.addGenre(movie, catalog)
-        md.addCountry(movie, catalog)
+    input_file1=csv.DictReader(open(file1, encoding="utf-8"), dialect=dialect)
+    file2= config.file_dir + file2
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    input_file2=csv.DictReader(open(file2, encoding="utf-8"), dialect=dialect)
+    for movie1 in input_file1:
+        md.addCompany(movie1, catalog)
+        md.addGenre(movie1, catalog)
+        md.addCountry(movie1, catalog)
+        for movie2 in input_file2:
+            md.addDirector(movie2, movie1, catalog)
+            md.addActor(movie2, movie1, catalog)
 
 #______________________________________________________
 # Funciones de consulta
@@ -194,6 +201,18 @@ def cmpfunctionCountry(element1, entry):
     else:
         return -1
 
+def cmpfunctionID(element1, entry):
+    """
+    Compara dos compañias.
+    """
+    id = int(me.getKey(entry))
+    element1= int(element1)
+    if (element1 == id):
+        return 0
+    elif (element1 > id):
+        return 1
+    else:
+        return -1
 
 # ___________________________________________________
 #  Funciones generales implementadas
