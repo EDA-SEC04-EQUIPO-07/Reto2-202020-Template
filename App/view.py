@@ -48,7 +48,13 @@ file_details='\Data\Movies\SmallMoviesDetailsCleaned.csv'
 #  el controlador.
 # ___________________________________________________
 
-
+def printlist(lst):
+    """
+    Imprime los elemntos de una lista.
+    """
+    iterator=it.newIterator(lst)
+    while it.hasNext(iterator):
+        print(it.next(iterator))
 
 # ___________________________________________________
 #  Menu principal
@@ -89,21 +95,21 @@ def menu():
             (movies, avg, size)=ct.getCompany(catalog, company)
             print('La compañia \"', company,'\" tiene un total de peliculas: ', str(size))
             print('Las peliculas son: ')
-            for movie in movies:
-                print(movie)
+            printlist(movies)
             print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\"')
         #opcion3
         elif inputs == '3':
+            print('None')
         
         #opcion4
         elif inputs == '4':
-        
+            print('None')
         #opcion5
         elif inputs == '5':
-        
+            print('None')
         #opcion6
         elif inputs == '6':
-        
+            print('None')
         #opcion salida
         elif inputs == '0':
             sys.exit(0)

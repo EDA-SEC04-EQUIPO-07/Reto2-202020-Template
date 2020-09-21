@@ -122,25 +122,27 @@ def newDirector(director_name):
     """
     Crea un nuevo elemento de los directores.
     """
-    director={'name': None, 'movies': None, 'vote_avg': None}
+    director={'name': None, 'movies': None, 'details': None, 'vote_avg': None}
     director['name']=director_name
     director['movies']=lt.newList(datastructure='SINGLE_LINKED')
+    director['details']=lt.newList(datastructure='SINGLE_LINKED')
     return director
 
 def newActor(actor_name):
     """
     Crea un nuevo elemento de los actores.
     """
-    actor={'name': None, 'movies': None, 'vote_avg': None}
+    actor={'name': None, 'movies': None, 'details': None,'vote_avg': None}
     actor['name']=actor_name
     actor['movies']=lt.newList(datastructure='SINGLE_LINKED')
+    actor['details'] = lt.newList(datastructure='SINGLE_LINKED')
     return actor 
 
 def newGenre(genre_name):
     """
     Crea un nuevo elemento de generos.
     """
-    genre={'name': None, 'movies': None, 'vote_avg': None}
+    genre={'name': None, 'movies': None, 'vote_count': None}
     genre['name']=genre_name
     genre['movies']=lt.newList(datastructure='SINGLE_LINKED')
     return genre
@@ -220,6 +222,7 @@ def addDirector(movie2, movie1, catalog):
         director=newDirector(director_name)
         mp.put(directors, director_name, director)
     lt.addLast(director['movies'], movie2)
+    lt.addLast(director['details'], movie1)
     avg_dt=director['vote_avg']
     avg_mv=movie1['vote_average']
     if avg_dt == None:
@@ -242,6 +245,7 @@ def addActor(movie2, movie1, catalog):
             actor=newActor(actor1)
             mp.put(actors, actor1, actor)
         lt.addLast(actor['movies'], movie2)
+        lt.addLast(actor['details'], movie1)
         avg_at=actor['vote_avg']
         avg_mv=movie1['vote_average']
         if avg_at == None:
@@ -259,6 +263,7 @@ def addActor(movie2, movie1, catalog):
             actor=newActor(actor2)
             mp.put(actors, actor2, actor)
         lt.addLast(actor['movies'], movie2)
+        lt.addLast(actor['details'], movie1)
         avg_at=actor['vote_avg']
         avg_mv=movie1['vote_average']
         if avg_at == None:
@@ -275,6 +280,7 @@ def addActor(movie2, movie1, catalog):
             actor=newActor(actor3)
             mp.put(actors, actor3, actor)
         lt.addLast(actor['movies'], movie2)
+        lt.addLast(actor['details'], movie1)
         avg_at=actor['vote_avg']
         avg_mv=movie1['vote_average']
         if avg_at == None:
@@ -291,6 +297,7 @@ def addActor(movie2, movie1, catalog):
             actor=newActor(actor4)
             mp.put(actors, actor4, actor)
         lt.addLast(actor['movies'], movie2)
+        lt.addLast(actor['details'], movie1)
         avg_at=actor['vote_avg']
         avg_mv=movie1['vote_average']
         if avg_at == None:
@@ -307,6 +314,7 @@ def addActor(movie2, movie1, catalog):
             actor=newActor(actor5)
             mp.put(actors, actor5, actor)
         lt.addLast(actor['movies'], movie2)
+        lt.addLast(actor['details'], movie1)
         avg_at=actor['vote_avg']
         avg_mv=movie1['vote_average']
         if avg_at == None:
@@ -329,12 +337,12 @@ def addGenre(movie, catalog):
             genre=newGenre(genre_name)
             mp.put(genres, genre_name, genre)
         lt.addLast(genre['movies'], movie)
-        avg_gn=genre['vote_avg']
-        avg_mv=movie['vote_average']
-        if avg_gn == None:
-            genre['vote_avg']=float(avg_mv)
+        count_gn=genre['vote_count']
+        count_mv=movie['vote_count']
+        if count_gn == None:
+            genre['vote_count']=int(count_mv)
         else:
-            genre['vote_avg']= round(((avg_gn+ float(avg_mv))/2),2)
+            genre['vote_count']=((count_gn+ int(count_mv))/2)
 
 def addCountry(movie, catalog):
     """
@@ -356,7 +364,7 @@ def addCountry(movie, catalog):
     if avg_ct == None:
         country['vote_avg']=float(avg_mv)
     else:
-        country['vote_avg']= round(((avg_ct+ float(avg_mv))/2),2)
+        country['vote_avg']=round(((avg_ct+ float(avg_mv))/2),2)
 
 #______________________________________________________
 # Ignorar
@@ -471,13 +479,12 @@ def countActors(lst):
 
 def getElementCriteria(catalog, criteria, key):
     """
-    Busca los elementos de un map deacuerdo a un cirterio.
+    Retorna el elemento a buscar de acuerdo al criterio
     """
     value= None
-    if criteria == 'production_companies':
-        if mp.contains(catalog['production_companies'], key):  
-            entry=mp.get(catalog['production_companies'], key)
-            value=me.getValue(entry)
-        else:
-            print('La llave no esta en el map')
+    if mp.contains(catalog[criteria], key):  
+        entry=mp.get(catalog[criteria], key)
+        value=me.getValue(entry)
+    else:
+        print('La llave no esta en el map')
     return value
