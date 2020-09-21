@@ -94,35 +94,37 @@ def loadDataDetails(catalog, file):
     for movie in input_file:
         md.addMovie(catalog, movie, info=2)
 
-def addElementsmapsDetails(catalog, file):
+def addElementsmapsDetails(catalog, file1, file2):
     """
-    Carga los elementos de los mapas desde las listas.
-    """
-    file= config.file_dir + file
-    dialect = csv.excel()
-    dialect.delimiter=";"
-    input_file=csv.DictReader(open(file, encoding="utf-8"), dialect=dialect)
-    for movie in input_file:
-        md.addCompany(movie, catalog)
-        md.addGenre(movie, catalog)
-        md.addCountry(movie, catalog)
-
-def addElementsmapsCasting(catalog, file1, file2):
-    """
-    Carga los elementos de los mapas desde las listas.
+    Carga los elementos de los mapas relacionados con los details.
     """
     file1= config.file_dir + file1
-    details= addElementsmapsDetails(catalog, file2)
     dialect = csv.excel()
     dialect.delimiter=";"
-    input_file=csv.DictReader(open(file1, encoding="utf-8"), dialect=dialect)
-    for person in input_file:
-        #md.addActor(person, details, catalog)
-        md.addDirector(person, details, catalog)
+    input_file1=csv.DictReader(open(file1, encoding="utf-8"), dialect=dialect)
+    file2= config.file_dir + file2
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    input_file2=csv.DictReader(open(file2, encoding="utf-8"), dialect=dialect)
+    for movie1 in input_file1:
+        md.addCompany(movie1, catalog)
+        md.addGenre(movie1, catalog)
+        md.addCountry(movie1, catalog)
+    iterator=it.newIterator(catalog['Data']['details'])
+    for movie2 in input_file2:
+        movie1=it.next(iterator)
+        md.addDirector(movie2, movie1, catalog)
+        md.addActor(movie2, movie1, catalog)
 
 #______________________________________________________
 # Funciones de consulta
 #______________________________________________________
+
+def sizeList(lst):
+    """
+    Retorna la longitud de una lista.
+    """
+    return lt.size(lst)
 
 def getCompany(catalog, company):
     """
@@ -131,38 +133,47 @@ def getCompany(catalog, company):
     value=md.getElementCriteria(catalog, 'production_companies', company)
     try:
         movies=value['movies']
-        lst=[]
+        lst=lt.newList(datastructure='SINGLE_LINKED')
         iterator=it.newIterator(movies)
         while it.hasNext(iterator):
             movie=it.next(iterator)
             movie_name=movie['title']
-            lst.append(movie_name)
+            lt.addLast(lst, movie_name)
         avg=value['vote_avg']
         size=lt.size(movies)
         return (lst, avg, size)
     except:
         return None
 
-
-def getDirector(catalog, director):
+def getActor(catalog, actor):
     """
-    Busca el director en el mapa de directores del catalogo.
+    Retorna a un actor con su informacion.
     """
-    value=md.getElementCriteria(catalog, 'director_name', director)
+    value=md.getElementCriteria(catalog, 'actor_name', actor)
     try:
         movies=value['movies']
-        lst=[]
-        iterator=it.newIterator(movies)
-        while it.hasNext(iterator):
-            movie=it.next(iterator)
-            movie_name=movie['title']
-            lst.append(movie_name)
+        info=value['details']
+        lst=lt.newList(datastructure='SINGLE_LINKED')
+        directors={}
+        iterator1=it.newIterator(movies)
+        iterator2=it.newIterator(info)
+        while it.hasNext(iterator1):
+            movie=it.next(iterator1)
+            director=movie['director_name']
+            if director in directors:
+                directors[director]+=1
+            else:
+                director[director]=1
+        while it.hasNext(iterator2):
+            movie=it.next(iterator2)
+            title=movie['title']
+            lt.addLast(lst, title)
         avg=value['vote_avg']
         size=lt.size(movies)
-        return (lst, avg, size)
+        max_director=max(directors)
+        return (lst, size, avg, max_director )
     except:
         return None
-
         
 #______________________________________________________
 # Funciones de Comparacion
@@ -228,6 +239,18 @@ def cmpfunctionCountry(element1, entry):
     else:
         return -1
 
+def cmpfunctionID(element1, entry):
+    """
+    Compara dos compañias.
+    """
+    id = int(me.getKey(entry))
+    element1= int(element1)
+    if (element1 == id):
+        return 0
+    elif (element1 > id):
+        return 1
+    else:
+        return -1
 
 # ___________________________________________________
 #  Funciones generales implementadas

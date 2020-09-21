@@ -48,7 +48,13 @@ file_details='\Data\Movies\SmallMoviesDetailsCleaned.csv'
 #  el controlador.
 # ___________________________________________________
 
-
+def printlist(lst):
+    """
+    Imprime los elemntos de una lista.
+    """
+    iterator=it.newIterator(lst)
+    while it.hasNext(iterator):
+        print(it.next(iterator))
 
 # ___________________________________________________
 #  Menu principal
@@ -58,9 +64,11 @@ def printMenu():
     print('Bienvenido')
     print('1- Cargar datos.')
     print('2- Descubrir Productoras de cine.')
-    print('3- Descubrir Director de cine.')
+    print('3- Conocer un director de cine.')
+    print('4- Conocer un actor de cine.')
+    print('5- Conocer un genero cinematográfico')
+    print('6- Conocer todas las peliculas de un país.')
     print('0- Salir')
-
 
 def menu():
     """
@@ -72,33 +80,41 @@ def menu():
     while True:
         printMenu()
         inputs = input('Seleccione una opción para continuar\n')
+        #opcion1
         if inputs =='1':
             print('caragndo datos...')
             lst1=ct.loadlist(file_cast, lst1)
             lst2=ct.loadlist(file_details, lst2)
             catalog=ct.initCatalog(lst1, lst2)
-            ct.addElementsmapsDetails(catalog, file_details)
-            ct.addElementsmapsCasting(catalog,file_cast, file_details)
-            print('La longitud de los datos es:\"',arraylist.size(catalog['Data']['details']) ,'\"')
-            print('La longitud de los datos es:\"',arraylist.size(catalog['Data']['casting']) ,'\"')
+            ct.addElementsmapsDetails(catalog, file_details, file_cast)
+            print('La longitud de los datos es:\"',ct.sizeList(catalog['Data']['details']) ,'\"')
+            print('La longitud de los datos es:\"',ct.sizeList(catalog['Data']['casting']) ,'\"')
+        #opcion2
         elif inputs =='2':
             company=input('Ingrese el nombre de la productora de cine:\n')
             (movies, avg, size)=ct.getCompany(catalog, company)
             print('La compañia \"', company,'\" tiene un total de peliculas: ', str(size))
             print('Las peliculas son: ')
-            for movie in movies:
-                print(movie)
+            printlist(movies)
             print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\"')
-        elif inputs =='3':
-            director=input('Ingrese el nombre del director de cine:\n')
-            (movies, avg, size)=ct.getDirector(catalog, director)
-            print('El director \"', director,'\" dirigio un total de peliculas: ', str(size))
-            print('Las peliculas son: ')
-            for movie in movies:
-                print(movie)
-            print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\"')
+        #opcion3
+        elif inputs == '3':
+            print('None')
+        
+        #opcion4
+        elif inputs == '4':
+            print('None')
+        #opcion5
+        elif inputs == '5':
+            print('None')
+        #opcion6
+        elif inputs == '6':
+            print('None')
+        #opcion salida
         elif inputs == '0':
             sys.exit(0)
+        
+        #opcion no valida
         else:
             print('La opcion: \"', inputs,'\" no es correcta.\n')
     sys.exit(0)
