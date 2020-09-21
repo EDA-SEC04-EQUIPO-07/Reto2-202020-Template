@@ -103,7 +103,8 @@ def menu():
         
         #opcion4
         elif inputs == '4':
-            print('None')
+            actor=input('Ingrese el nombre del actor:\n')
+            print(ct.getActor(catalog, actor))
         #opcion5
         elif inputs == '5':
             print('None')
