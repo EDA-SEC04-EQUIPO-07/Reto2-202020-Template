@@ -94,6 +94,7 @@ def menu():
             company=input('Ingrese el nombre de la productora de cine:\n')
             answer =ct.getCompany(catalog, company)
             if answer != None:
+                (movies, avg, size)=answer
                 print('La compañia \"', company,'\" tiene un total de peliculas: ', str(size))
                 print('Las peliculas son: ')
                 printlist(movies)
