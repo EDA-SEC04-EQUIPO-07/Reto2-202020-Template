@@ -474,6 +474,25 @@ def getElementCriteria(catalog, criteria, key):
         print('La llave no esta en el map')
     return value
 
+def getCompany(catalog, company):
+    """
+    Busca la productora en el mapa de productoras del catalogo.
+    """
+    value= getElementCriteria(catalog, 'production_companies', company)
+    try:
+        movies=value['movies']
+        lst=lt.newList(datastructure='SINGLE_LINKED')
+        iterator=it.newIterator(movies)
+        while it.hasNext(iterator):
+            movie=it.next(iterator)
+            movie_name=movie['title']
+            lt.addLast(lst, movie_name)
+        avg=value['vote_avg']
+        size=lt.size(movies)
+        return (lst, avg, size)
+    except:
+        return None
+
 def getDirector(catalog, director):
     """
     Retorna a un director con su informacion.

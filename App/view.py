@@ -100,7 +100,7 @@ def menu():
         #opcion3
         elif inputs == '3':
             director=input('Ingrese el nombre del director:\n')
-            (movies, avg, size)=ct.getDirector(catalog, director)
+            (movies, size, avg)=ct.getDirector(catalog, director)
             print('El director \"', director,'\" tiene un total de peliculas: ', str(size))
             print('Las peliculas son: ')
             printlist(movies)
