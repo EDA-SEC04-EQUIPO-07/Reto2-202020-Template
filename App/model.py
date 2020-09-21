@@ -592,8 +592,8 @@ def cmpfunctionID(element1, entry):
     """
     Compara IDs.
     """
-    id = int(me.getKey(entry))
-    element1= int(element1)
+    id = float(me.getKey(entry))
+    element1= float(element1)
     if (element1 == id):
         return 0
     elif (element1 > id):
