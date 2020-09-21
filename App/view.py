@@ -92,11 +92,14 @@ def menu():
         #opcion2
         elif inputs =='2':
             company=input('Ingrese el nombre de la productora de cine:\n')
-            (movies, avg, size)=ct.getCompany(catalog, company)
-            print('La compañia \"', company,'\" tiene un total de peliculas: ', str(size))
-            print('Las peliculas son: ')
-            printlist(movies)
-            print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\"')
+            answer =ct.getCompany(catalog, company)
+            if answer != None:
+                print('La compañia \"', company,'\" tiene un total de peliculas: ', str(size))
+                print('Las peliculas son: ')
+                printlist(movies)
+                print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\"')
+            else:
+                print('Llave no valida')
         #opcion3
         elif inputs == '3':
             director=input('Ingrese el nombre del director:\n')
