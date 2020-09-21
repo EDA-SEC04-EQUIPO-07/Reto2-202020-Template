@@ -132,10 +132,10 @@ def menu():
             answer=ct.getGenre(catalog, genre)
             if answer != None:
                 (movies,avg,size)=answer
-                print('El genero: \"', genre,'\"cuenta con un total de: ', size, 'peliculas.\n')
                 print('\nLas peliculas son:\n')
                 printlist(movies)
                 print('\nLa votacion promedio de las peliculas fue: \"', str(avg), '\".\n')
+                print('El genero: \"', genre,'\"cuenta con un total de: ', size, 'peliculas.\n')
             else:
                 print('\nLa llave no es valida\n')
         #opcion6
