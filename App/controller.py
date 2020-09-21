@@ -120,6 +120,12 @@ def addElementsmapsDetails(catalog, file1, file2):
 # Funciones de consulta
 #______________________________________________________
 
+def sizeList(lst):
+    """
+    Retorna la longitud de una lista.
+    """
+    return lt.size(lst)
+
 def getCompany(catalog, company):
     """
     Busca la productora en el mapa de productoras del catalogo.

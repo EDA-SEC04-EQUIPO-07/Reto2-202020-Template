@@ -58,8 +58,11 @@ def printMenu():
     print('Bienvenido')
     print('1- Cargar datos.')
     print('2- Descubrir Productoras de cine.')
+    print('3- Conocer un director de cine.')
+    print('4- Conocer un actor de cine.')
+    print('5- Conocer un genero cinematográfico')
+    print('6- Conocer todas las peliculas de un país.')
     print('0- Salir')
-
 
 def menu():
     """
@@ -71,14 +74,16 @@ def menu():
     while True:
         printMenu()
         inputs = input('Seleccione una opción para continuar\n')
+        #opcion1
         if inputs =='1':
             print('caragndo datos...')
             lst1=ct.loadlist(file_cast, lst1)
             lst2=ct.loadlist(file_details, lst2)
             catalog=ct.initCatalog(lst1, lst2)
             ct.addElementsmapsDetails(catalog, file_details, file_cast)
-            print('La longitud de los datos es:\"',arraylist.size(catalog['Data']['details']) ,'\"')
-            print('La longitud de los datos es:\"',arraylist.size(catalog['Data']['casting']) ,'\"')
+            print('La longitud de los datos es:\"',ct.sizeList(catalog['Data']['details']) ,'\"')
+            print('La longitud de los datos es:\"',ct.sizeList(catalog['Data']['casting']) ,'\"')
+        #opcion2
         elif inputs =='2':
             company=input('Ingrese el nombre de la productora de cine:\n')
             (movies, avg, size)=ct.getCompany(catalog, company)
@@ -87,8 +92,23 @@ def menu():
             for movie in movies:
                 print(movie)
             print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\"')
+        #opcion3
+        elif inputs == '3':
+        
+        #opcion4
+        elif inputs == '4':
+        
+        #opcion5
+        elif inputs == '5':
+        
+        #opcion6
+        elif inputs == '6':
+        
+        #opcion salida
         elif inputs == '0':
             sys.exit(0)
+        
+        #opcion no valida
         else:
             print('La opcion: \"', inputs,'\" no es correcta.\n')
     sys.exit(0)
