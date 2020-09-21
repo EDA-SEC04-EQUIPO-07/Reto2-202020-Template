@@ -94,7 +94,7 @@ def menu():
             company=input('Ingrese el nombre de la productora de cine:\n')
             answer =ct.getCompany(catalog, company)
             if answer != None:
-                (movies, avg, size)=answer
+                (movies, avg, size)=ct.getCompany(catalog, company)
                 print('La compañia \"', company,'\" tiene un total de peliculas: ', str(size))
                 print('Las peliculas son: ')
                 printlist(movies)
@@ -106,7 +106,7 @@ def menu():
             director=input('Ingrese el nombre del director:\n')
             answer=ct.getDirector(catalog, director)
             if answer != None:
-                (movies, size, avg)=answer
+                (movies, size, avg)=ct.getDirector(catalog, director)
                 print('El director \"', director,'\" tiene un total de peliculas: ', str(size))
                 print('Las peliculas son: ')
                 printlist(movies)
@@ -116,7 +116,16 @@ def menu():
         #opcion4
         elif inputs == '4':
             actor=input('Ingrese el nombre del actor:\n')
-            (movies, size, avg, max_director)=ct.getActor(catalog, actor)
+            answer=ct.getActor(catalog, actor)
+            if answer != None:
+                (movies, size, avg, max_director )=ct.getActor(catalog, actor)
+                print('El actor \"', actor,'\" actuo en un total de peliculas: ', str(size))
+                print('Las peliculas son: ')
+                printlist(movies)
+                print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\"')
+                print('El director con el que mas colaboro es: ' , (max_director))
+            else:
+                print('Llave no valida')
         #opcion5
         elif inputs == '5':
             print('None')
