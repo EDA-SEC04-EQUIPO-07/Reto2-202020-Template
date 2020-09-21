@@ -130,127 +130,18 @@ def getCompany(catalog, company):
     """
     Busca la productora en el mapa de productoras del catalogo.
     """
-    value=md.getElementCriteria(catalog, 'production_companies', company)
-    try:
-        movies=value['movies']
-        lst=lt.newList(datastructure='SINGLE_LINKED')
-        iterator=it.newIterator(movies)
-        while it.hasNext(iterator):
-            movie=it.next(iterator)
-            movie_name=movie['title']
-            lt.addLast(lst, movie_name)
-        avg=value['vote_avg']
-        size=lt.size(movies)
-        return (lst, avg, size)
-    except:
-        return None
+    return md.getCompany(catalog, company)
+
+def getDirector(catalog, director):
+    """
+    Retorna a un actor con su informacion.
+    """
+    return md.getDirector(catalog, director)
 
 def getActor(catalog, actor):
     """
     Retorna a un actor con su informacion.
     """
-    value=md.getElementCriteria(catalog, 'actor_name', actor)
-    try:
-        movies=value['movies']
-        info=value['details']
-        lst=lt.newList(datastructure='SINGLE_LINKED')
-        directors={}
-        iterator1=it.newIterator(movies)
-        iterator2=it.newIterator(info)
-        while it.hasNext(iterator1):
-            movie=it.next(iterator1)
-            director=movie['director_name']
-            if director in directors:
-                directors[director]+=1
-            else:
-                director[director]=1
-        while it.hasNext(iterator2):
-            movie=it.next(iterator2)
-            title=movie['title']
-            lt.addLast(lst, title)
-        avg=value['vote_avg']
-        size=lt.size(movies)
-        max_director=max(directors)
-        return (lst, size, avg, max_director )
-    except:
-        return None
-        
-#______________________________________________________
-# Funciones de Comparacion
-#______________________________________________________
-
-def cmpfunctionCompanies(element1, entry):
-    """
-    Compara dos compañias.
-    """
-    company = me.getKey(entry)
-    if (element1 == company):
-        return 0
-    elif (element1 > company):
-        return 1
-    else:
-        return -1
-
-def cmpfunctionDirectors(element1, entry):
-    """
-    Compara dos compañias.
-    """
-    Director = me.getKey(entry)
-    if (element1 == Director):
-        return 0
-    elif (element1 > Director):
-        return 1
-    else:
-        return -1
-
-def cmpfunctionActor(element1, entry):
-    """
-    Compara dos compañias.
-    """
-    Actor = me.getKey(entry)
-    if (element1 == Actor):
-        return 0
-    elif (element1 > Actor):
-        return 1
-    else:
-        return -1
-
-def cmpfunctionGenres(element1, entry):
-    """
-    Compara dos compañias.
-    """
-    genre = me.getKey(entry)
-    if (element1 == genre):
-        return 0
-    elif (element1 > genre):
-        return 1
-    else:
-        return -1
-
-def cmpfunctionCountry(element1, entry):
-    """
-    Compara dos compañias.
-    """
-    country = me.getKey(entry)
-    if (element1 == country):
-        return 0
-    elif (element1 > country):
-        return 1
-    else:
-        return -1
-
-def cmpfunctionID(element1, entry):
-    """
-    Compara dos compañias.
-    """
-    id = int(me.getKey(entry))
-    element1= int(element1)
-    if (element1 == id):
-        return 0
-    elif (element1 > id):
-        return 1
-    else:
-        return -1
-
+    return md.getActor(catalog, actor)
 
 

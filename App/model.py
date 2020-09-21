@@ -31,7 +31,6 @@ from DISClib.ADT import map as mp
 from DISClib.DataStructures import listiterator as it
 from DISClib.DataStructures import liststructure as lt
 from DISClib.DataStructures import mapentry as me
-import controller as ct
 import csv
 
 
@@ -90,23 +89,23 @@ def newCatalog(lst1, lst2):
     catalog['production_companies']=mp.newMap(numelements=(countBy('production_companies',catalog['Data']['details'])),
                                         maptype='PROBING',
                                         loadfactor=0.4, 
-                                        comparefunction=ct.cmpfunctionCompanies)
+                                        comparefunction=cmpfunctionCompanies)
     catalog['director_name']=mp.newMap(numelements=(countBy('director_name',catalog['Data']['casting'])), 
                                         maptype='PROBING', 
                                         loadfactor=0.4,
-                                        comparefunction=ct.cmpfunctionDirectors)
+                                        comparefunction= cmpfunctionDirectors)
     catalog['actor_name']=mp.newMap(numelements=(countActors(catalog['Data']['casting'])), 
                                         maptype='PROBING', 
                                         loadfactor=0.4,
-                                        comparefunction=ct.cmpfunctionActor)
+                                        comparefunction= cmpfunctionActor)
     catalog['genres']=mp.newMap(numelements=(countGenres(catalog['Data']['details'])), 
                                         maptype='PROBING', 
                                         loadfactor=0.4,
-                                        comparefunction=ct.cmpfunctionGenres)
+                                        comparefunction= cmpfunctionGenres)
     catalog['production_countries']=mp.newMap(numelements=(countBy('production_countries',catalog['Data']['details'])), 
                                         maptype='PROBING', 
                                         loadfactor=0.4,
-                                        comparefunction=ct.cmpfunctionCountry)
+                                        comparefunction= cmpfunctionCountry)
     return catalog 
 
 def newComopanies(company_name):
@@ -115,7 +114,7 @@ def newComopanies(company_name):
     """
     company={'name': None, 'movies':None, 'vote_avg': None}
     company['name']=company_name
-    company['movies']=lt.newList(datastructure='SINGLE_LINKED', cmpfunction=ct.cmpfunctionCompanies)
+    company['movies']=lt.newList(datastructure='SINGLE_LINKED', cmpfunction= cmpfunctionCompanies)
     return company
 
 def newDirector(director_name):
@@ -163,9 +162,6 @@ def newID(ID):
     elemnt={'ID':None, 'details':None, 'casting':None, 'vote_avg':None}
     elemnt['ID']=ID
     return elemnt
-#______________________________________________________
-# ignorar
-#______________________________________________________
 
 #______________________________________________________
 # Funciones para agregar informacion al catalogo
@@ -477,3 +473,130 @@ def getElementCriteria(catalog, criteria, key):
     else:
         print('La llave no esta en el map')
     return value
+
+def getDirector(catalog, director):
+    """
+    Retorna a un director con su informacion.
+    """
+    value= getElementCriteria(catalog, 'director_name', director)
+    try:
+        movies=value['movies']
+        info=value['details']
+        lst=lt.newList(datastructure='SINGLE_LINKED')
+        iterator=it.newIterator(info)
+        while it.hasNext(iterator):
+            movie=it.next(iterator)
+            title=movie['title']
+            lt.addLast(lst, title)
+        avg=value['vote_avg']
+        size=lt.size(movies)
+        return (lst, size, avg)
+    except:
+        return None
+
+def getActor(catalog, actor):
+    """
+    Retorna a un actor con su informacion.
+    """
+    value= getElementCriteria(catalog, 'actor_name', actor)
+    try:
+        movies=value['movies']
+        info=value['details']
+        lst=lt.newList(datastructure='SINGLE_LINKED')
+        directors={}
+        iterator1=it.newIterator(movies)
+        iterator2=it.newIterator(info)
+        while it.hasNext(iterator1):
+            movie=it.next(iterator1)
+            director=movie['director_name']
+            if director in directors:
+                directors[director]+=1
+            else:
+                director[director]=1
+        while it.hasNext(iterator2):
+            movie=it.next(iterator2)
+            title=movie['title']
+            lt.addLast(lst, title)
+        avg=value['vote_avg']
+        size=lt.size(movies)
+        max_director=max(directors)
+        return (lst, size, avg, max_director )
+    except:
+        return None
+
+#______________________________________________________
+# Funciones de Comparacion
+#______________________________________________________
+
+def cmpfunctionCompanies(element1, entry):
+    """
+    Compara Compañias.
+    """
+    company = me.getKey(entry)
+    if (element1 == company):
+        return 0
+    elif (element1 > company):
+        return 1
+    else:
+        return -1
+
+def cmpfunctionDirectors(element1, entry):
+    """
+    Compara Directores.
+    """
+    Director = me.getKey(entry)
+    if (element1 == Director):
+        return 0
+    elif (element1 > Director):
+        return 1
+    else:
+        return -1
+
+def cmpfunctionActor(element1, entry):
+    """
+    Compara Actores.
+    """
+    Actor = me.getKey(entry)
+    if (element1 == Actor):
+        return 0
+    elif (element1 > Actor):
+        return 1
+    else:
+        return -1
+
+def cmpfunctionGenres(element1, entry):
+    """
+    Compara Generos.
+    """
+    genre = me.getKey(entry)
+    if (element1 == genre):
+        return 0
+    elif (element1 > genre):
+        return 1
+    else:
+        return -1
+
+def cmpfunctionCountry(element1, entry):
+    """
+    Compara Países.
+    """
+    country = me.getKey(entry)
+    if (element1 == country):
+        return 0
+    elif (element1 > country):
+        return 1
+    else:
+        return -1
+
+def cmpfunctionID(element1, entry):
+    """
+    Compara IDs.
+    """
+    id = int(me.getKey(entry))
+    element1= int(element1)
+    if (element1 == id):
+        return 0
+    elif (element1 > id):
+        return 1
+    else:
+        return -1
