@@ -100,12 +100,15 @@ def menu():
         #opcion3
         elif inputs == '3':
             director=input('Ingrese el nombre del director:\n')
-            (movies, size, avg)=ct.getDirector(catalog, director)
-            print('El director \"', director,'\" tiene un total de peliculas: ', str(size))
-            print('Las peliculas son: ')
-            printlist(movies)
-            print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\"')
-        
+            answer=ct.getDirector(catalog, director)
+            if answer != None:
+                (movies, size, avg)=answer
+                print('El director \"', director,'\" tiene un total de peliculas: ', str(size))
+                print('Las peliculas son: ')
+                printlist(movies)
+                print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\"')
+            else:
+                print('Llave no valida')
         #opcion4
         elif inputs == '4':
             actor=input('Ingrese el nombre del actor:\n')
