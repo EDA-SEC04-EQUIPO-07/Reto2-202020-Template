@@ -82,13 +82,13 @@ def menu():
         inputs = input('Seleccione una opción para continuar\n')
         #opcion1
         if inputs =='1':
-            print('caragndo datos...')
+            print('caragndo datos...\n')
             lst1=ct.loadlist(file_cast, lst1)
             lst2=ct.loadlist(file_details, lst2)
             catalog=ct.initCatalog(lst1, lst2)
             ct.addElementsmapsDetails(catalog, file_details, file_cast)
-            print('La longitud de los datos es:\"',ct.sizeList(catalog['Data']['details']) ,'\"')
-            print('La longitud de los datos es:\"',ct.sizeList(catalog['Data']['casting']) ,'\"')
+            print('La longitud de los datos es:\"',ct.sizeList(catalog['Data']['details']) ,'\" elementos cargados.\n')
+
         #opcion2
         elif inputs =='2':
             company=input('Ingrese el nombre de la productora de cine:\n')
@@ -96,11 +96,11 @@ def menu():
             if answer != None:
                 (movies, avg, size)=ct.getCompany(catalog, company)
                 print('La compañia \"', company,'\" tiene un total de peliculas: ', str(size))
-                print('Las peliculas son: ')
+                print('\nLas peliculas son:\n')
                 printlist(movies)
-                print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\".\n')
+                print('\nSus peliculas tienen un voto promedio de: \"', str(avg), '\".\n')
             else:
-                print('Llave no es valida')
+                print('\nLlave no es valida\n')
         #opcion3
         elif inputs == '3':
             director=input('Ingrese el nombre del director:\n')
@@ -108,11 +108,11 @@ def menu():
             if answer != None:
                 (movies, size, avg)=ct.getDirector(catalog, director)
                 print('El director \"', director,'\" tiene un total de peliculas: ', str(size))
-                print('Las peliculas son: ')
+                print('\nLas peliculas son:\n')
                 printlist(movies)
-                print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\".\n')
+                print('\nSus peliculas tienen un voto promedio de: \"', str(avg), '\".\n')
             else:
-                print('Llave no es valida')
+                print('\nLlave no es valida\n')
         #opcion4
         elif inputs == '4':
             actor=input('Ingrese el nombre del actor:\n')
@@ -120,12 +120,12 @@ def menu():
             if answer != None:
                 (movies, size, avg, max_director )=ct.getActor(catalog, actor)
                 print('El actor \"', actor,'\" actuo en un total de peliculas: ', str(size))
-                print('Las peliculas son: ')
+                print('\nLas peliculas son:\n')
                 printlist(movies)
-                print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\"')
-                print('El director con el que mas colaboro es: ' , (max_director), '\n')
+                print('\nSus peliculas tienen un voto promedio de: \"', str(avg), '\"')
+                print('\nEl director con el que mas colaboro es: ' , (max_director), '\n')
             else:
-                print('Llave no es valida')
+                print('\nLlave no es valida\n')
         #opcion5
         elif inputs == '5':
             genre=input('Ingrese el genero de interes:\n')
@@ -133,9 +133,11 @@ def menu():
             if answer != None:
                 (movies,avg,size)=answer
                 print('El genero: \"', genre,'\"cuenta con un total de: ', size, 'peliculas.\n')
-                print('Las peliculas son:\n')
+                print('\nLas peliculas son:\n')
                 printlist(movies)
-                print('La votacion promedio de las peliculas fue: \"', str(avg), '\".\n')
+                print('\nLa votacion promedio de las peliculas fue: \"', str(avg), '\".\n')
+            else:
+                print('\nLa llave no es valida\n')
         #opcion6
         elif inputs == '6':
             print('None')

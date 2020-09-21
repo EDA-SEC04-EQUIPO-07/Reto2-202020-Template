@@ -485,8 +485,6 @@ def getElementCriteria(catalog, criteria, key):
     if mp.contains(catalog[criteria], key):  
         entry=mp.get(catalog[criteria], key)
         value=me.getValue(entry)
-    else:
-        print('La llave no esta en el map')
     return value
 
 def getCompany(catalog, company):
