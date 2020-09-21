@@ -130,50 +130,13 @@ def getCompany(catalog, company):
     """
     Busca la productora en el mapa de productoras del catalogo.
     """
-    value=md.getElementCriteria(catalog, 'production_companies', company)
-    try:
-        movies=value['movies']
-        lst=lt.newList(datastructure='SINGLE_LINKED')
-        iterator=it.newIterator(movies)
-        while it.hasNext(iterator):
-            movie=it.next(iterator)
-            movie_name=movie['title']
-            lt.addLast(lst, movie_name)
-        avg=value['vote_avg']
-        size=lt.size(movies)
-        return (lst, avg, size)
-    except:
-        return None
+    return md.getCompany(catalog, company) 
 
 def getActor(catalog, actor):
     """
     Retorna a un actor con su informacion.
     """
-    value=md.getElementCriteria(catalog, 'actor_name', actor)
-    try:
-        movies=value['movies']
-        info=value['details']
-        lst=lt.newList(datastructure='SINGLE_LINKED')
-        directors={}
-        iterator1=it.newIterator(movies)
-        iterator2=it.newIterator(info)
-        while it.hasNext(iterator1):
-            movie=it.next(iterator1)
-            director=movie['director_name']
-            if director in directors:
-                directors[director]+=1
-            else:
-                director[director]=1
-        while it.hasNext(iterator2):
-            movie=it.next(iterator2)
-            title=movie['title']
-            lt.addLast(lst, title)
-        avg=value['vote_avg']
-        size=lt.size(movies)
-        max_director=max(directors)
-        return (lst, size, avg, max_director )
-    except:
-        return None
+    return md.getActor(catalog,actor)
         
 #______________________________________________________
 # Funciones de Comparacion
