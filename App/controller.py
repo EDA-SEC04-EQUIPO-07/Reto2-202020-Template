@@ -110,9 +110,11 @@ def addElementsmapsDetails(catalog, file1, file2):
         md.addCompany(movie1, catalog)
         md.addGenre(movie1, catalog)
         md.addCountry(movie1, catalog)
-        for movie2 in input_file2:
-            md.addDirector(movie2, movie1, catalog)
-            md.addActor(movie2, movie1, catalog)
+    iterator=it.newIterator(catalog['Data']['details'])
+    for movie2 in input_file2:
+        movie1=it.next(iterator)
+        md.addDirector(movie2, movie1, catalog)
+        md.addActor(movie2, movie1, catalog)
 
 #______________________________________________________
 # Funciones de consulta
