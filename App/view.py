@@ -98,9 +98,9 @@ def menu():
                 print('La compañia \"', company,'\" tiene un total de peliculas: ', str(size))
                 print('Las peliculas son: ')
                 printlist(movies)
-                print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\"')
+                print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\".\n')
             else:
-                print('Llave no valida')
+                print('Llave no es valida')
         #opcion3
         elif inputs == '3':
             director=input('Ingrese el nombre del director:\n')
@@ -110,9 +110,9 @@ def menu():
                 print('El director \"', director,'\" tiene un total de peliculas: ', str(size))
                 print('Las peliculas son: ')
                 printlist(movies)
-                print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\"')
+                print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\".\n')
             else:
-                print('Llave no valida')
+                print('Llave no es valida')
         #opcion4
         elif inputs == '4':
             actor=input('Ingrese el nombre del actor:\n')
@@ -123,12 +123,19 @@ def menu():
                 print('Las peliculas son: ')
                 printlist(movies)
                 print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\"')
-                print('El director con el que mas colaboro es: ' , (max_director))
+                print('El director con el que mas colaboro es: ' , (max_director), '\n')
             else:
-                print('Llave no valida')
+                print('Llave no es valida')
         #opcion5
         elif inputs == '5':
-            print('None')
+            genre=input('Ingrese el genero de interes:\n')
+            answer=ct.getGenre(catalog, genre)
+            if answer != None:
+                (movies,avg,size)=answer
+                print('El genero: \"', genre,'\"cuenta con un total de: ', size, 'peliculas.\n')
+                print('Las peliculas son:\n')
+                printlist(movies)
+                print('La votacion promedio de las peliculas fue: \"', str(avg), '\".\n')
         #opcion6
         elif inputs == '6':
             print('None')

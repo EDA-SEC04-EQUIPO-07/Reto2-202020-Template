@@ -318,7 +318,22 @@ def addGenre(movie, catalog):
     Agrega informacion de un genero en el mapa de generos.
     """
     genres=catalog['genres']
-    genre_list=movie['genres'].split('|')
+    full_genre=movie['genres']
+    exist=mp.contains(genres, full_genre)
+    if exist:
+        entry=mp.get(genres, full_genre)
+        genre=me.getValue(entry)
+    else:
+        genre=newGenre(full_genre)
+        mp.put(genres, full_genre, genre)
+    lt.addLast(genre['movies'], movie)
+    count_gn=genre['vote_count']
+    count_mv=movie['vote_count']
+    if count_gn == None:
+        genre['vote_count']=float(count_mv)
+    else:
+        genre['vote_count']=round(((count_gn+ float(count_mv))/2),2)
+    genre_list=full_genre.split('|')
     for genre_name in genre_list:
         exist=mp.contains(genres, genre_name)
         if exist:
@@ -331,9 +346,9 @@ def addGenre(movie, catalog):
         count_gn=genre['vote_count']
         count_mv=movie['vote_count']
         if count_gn == None:
-            genre['vote_count']=int(count_mv)
+            genre['vote_count']=float(count_mv)
         else:
-            genre['vote_count']=((count_gn+ int(count_mv))/2)
+            genre['vote_count']=round(((count_gn+ float(count_mv))/2),2)
 
 def addCountry(movie, catalog):
     """
@@ -542,6 +557,27 @@ def getActor(catalog, actor):
         return (lst, size, avg, max_director )
     except:
         return None
+
+def getGenre(catalog, genre):
+    """
+    Retorna el genero con la informacion que tiene como valor,
+    """
+    value=getElementCriteria(catalog, 'genres', genre)
+    try:
+        info=value['movies']
+        lst=lt.newList(datastructure='SINGLE_LINKED')
+        iterator=it.newIterator(lst)
+        while it.hasNext(iterator):
+            movie=it.next(iterator)
+            title=movie['title']
+            lt.addLast(lst, title)
+        avg=value['vote_count']
+        size=lt.size(info)
+        return (lst, avg, size)
+    except:
+        return None
+    
+    
 
 #______________________________________________________
 # Funciones de Comparacion

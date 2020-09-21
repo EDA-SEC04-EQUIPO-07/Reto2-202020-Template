@@ -144,4 +144,10 @@ def getActor(catalog, actor):
     """
     return md.getActor(catalog, actor)
 
+def getGenre(catalog, genre):
+    """
+    Retorna un genero con su informacion.
+    """
+    return md.getGenre(catalog, genre)
+
 
