@@ -76,11 +76,17 @@ def newCatalog(lst1, lst2):
     Crea un nuevo catalogo.
     """
     Data={'casting': None, 'details': None}
-    catalog={ 'Data': Data, 'production_companies': None, 'director_name': None, 'actor_name': None,'genres':None, 'production_countries': None}
+    catalog={ 'Data': Data, 'production_companies': None, 'IDs':None,
+    'director_name': None, 'actor_name': None,'genres':None, 'production_countries': None}
 
     catalog['Data']['casting']=lst1
     catalog['Data']['details']=lst2
 
+
+    #catalog['IDs']=mp.newMap(numelements=(lt.size(catalog['Data']['details'])),
+                                        #maptype='CHAINIG',
+                                        #loadfactor=1,
+                                        #comparefunction=ct.cmpfunctionID)
     catalog['production_companies']=mp.newMap(numelements=(countBy('production_companies',catalog['Data']['details'])),
                                         maptype='PROBING',
                                         loadfactor=0.4, 
@@ -89,10 +95,11 @@ def newCatalog(lst1, lst2):
                                         maptype='PROBING', 
                                         loadfactor=0.4,
                                         comparefunction=ct.cmpfunctionDirectors)
-    #catalog['actor_name']=mp.newMap(numelements=(countBy('actor_name',catalog['Data']['casting'])), 
-                                        #maptype='PROBING', 
-                                        #loadfactor=0.4)#Necesita mejoras, acceder a los actores
-    catalog['genres']=mp.newMap(numelements=(countBy('genres',catalog['Data']['details'])), 
+    catalog['actor_name']=mp.newMap(numelements=(countActors(catalog['Data']['casting'])), 
+                                        maptype='PROBING', 
+                                        loadfactor=0.4,
+                                        comparefunction=ct.cmpfunctionActor)
+    catalog['genres']=mp.newMap(numelements=(countGenres(catalog['Data']['details'])), 
                                         maptype='PROBING', 
                                         loadfactor=0.4,
                                         comparefunction=ct.cmpfunctionGenres)
@@ -147,6 +154,21 @@ def newCountry(country_name):
     country['movies']=lt.newList(datastructure='ARRAY_LIST')
     return country
 
+#______________________________________________________
+# ignorar
+#______________________________________________________
+
+def newID(ID):
+    """
+    Crea un nuevo elemento de ID.
+    """
+    elemnt={'ID':None, 'details':None, 'casting':None, 'vote_avg':None}
+    elemnt['ID']=ID
+    return elemnt
+
+#______________________________________________________
+# ignorar
+#______________________________________________________
 
 #______________________________________________________
 # Funciones para agregar informacion al catalogo
@@ -184,69 +206,135 @@ def addCompany(movie,catalog):
     else:
         company['vote_avg']= round(((avg_cp+ float(avg_mv))/2),2)    
 
-def addDirector(movie,catalog):
+def addDirector(movie2, movie1, catalog):
     """
     Agrega informacion de un director en el mapa de directores.
     """
-    print(movie)
     directors=catalog['director_name']
-    director_name=movie['director_name']
+    director_name=movie2['director_name']
     exist=mp.contains(directors, director_name)
     if exist:
         entry=mp.get(directors, director_name)
         director=me.getValue(entry)
     else:
-        director=newComopanies(director_name)
+        director=newDirector(director_name)
         mp.put(directors, director_name, director)
-    lt.addLast(director['movies'], movie)
-    avg_dc=director['vote_avg']
-    avg_mv=movie['vote_average']
-    if avg_dc == None:
+    lt.addLast(director['movies'], movie2)
+    avg_dt=director['vote_avg']
+    avg_mv=movie1['vote_average']
+    if avg_dt == None:
         director['vote_avg']=float(avg_mv)
     else:
-        director['vote_avg']= round(((avg_dc+ float(avg_mv))/2),2)
+        director['vote_avg']= round(((avg_dt+ float(avg_mv))/2),2) 
 
-def addActor(movie, catalog):
+def addActor(movie2, movie1, catalog):
     """
     Agrega informacion de un actor en el mapa de actores.
     """
     actors=catalog['actor_name']
-    actor_name=movie['actor_name']
-    exist=mp.contains(actors, actor_name)
-    if exist:
-        entry=mp.get(actors, actor_name)
-        actor=me.getValue(entry)
-    else:
-        actor=newComopanies(actor_name)
-        mp.put(actors, actor_name, actor)
-    lt.addLast(actor['movies'], movie)
-    avg_at=actor['vote_avg']
-    avg_mv=movie['vote_average']
-    if avg_at == None:
-        actor['vote_avg']=float(avg_mv)
-    else:
-        actor['vote_avg']= round(((avg_at+ float(avg_mv))/2),2)
+    actor1=movie2['actor1_name']
+    if actor1 != None:
+        exist=mp.contains(actors, actor1)
+        if exist:
+            entry=mp.get(actors, actor1)
+            actor=me.getValue(entry)
+        else:
+            actor=newActor(actor1)
+            mp.put(actors, actor1, actor)
+        lt.addLast(actor['movies'], movie2)
+        avg_at=actor['vote_avg']
+        avg_mv=movie1['vote_average']
+        if avg_at == None:
+            actor['vote_avg']=float(avg_mv)
+        else:
+            actor['vote_avg']= round(((avg_at+ float(avg_mv))/2),2)
+
+    actor2=movie2['actor2_name']
+    if actor2 != None:
+        exist=mp.contains(actors, actor2)
+        if exist:
+            entry=mp.get(actors, actor2)
+            actor=me.getValue(entry)
+        else:
+            actor=newActor(actor2)
+            mp.put(actors, actor2, actor)
+        lt.addLast(actor['movies'], movie2)
+        avg_at=actor['vote_avg']
+        avg_mv=movie1['vote_average']
+        if avg_at == None:
+            actor['vote_avg']=float(avg_mv)
+        else:
+            actor['vote_avg']= round(((avg_at+ float(avg_mv))/2),2)
+    actor3=movie2['actor3_name']
+    if actor3 != None:
+        exist=mp.contains(actors, actor3)
+        if exist:
+            entry=mp.get(actors, actor3)
+            actor=me.getValue(entry)
+        else:
+            actor=newActor(actor3)
+            mp.put(actors, actor3, actor)
+        lt.addLast(actor['movies'], movie2)
+        avg_at=actor['vote_avg']
+        avg_mv=movie1['vote_average']
+        if avg_at == None:
+            actor['vote_avg']=float(avg_mv)
+        else:
+            actor['vote_avg']= round(((avg_at+ float(avg_mv))/2),2)
+    actor4=movie2['actor4_name']
+    if actor4 != None:
+        exist=mp.contains(actors, actor4)
+        if exist:
+            entry=mp.get(actors, actor4)
+            actor=me.getValue(entry)
+        else:
+            actor=newActor(actor4)
+            mp.put(actors, actor4, actor)
+        lt.addLast(actor['movies'], movie2)
+        avg_at=actor['vote_avg']
+        avg_mv=movie1['vote_average']
+        if avg_at == None:
+            actor['vote_avg']=float(avg_mv)
+        else:
+            actor['vote_avg']= round(((avg_at+ float(avg_mv))/2),2)
+    actor5=movie2['actor5_name']
+    if actor5 != None:
+        exist=mp.contains(actors, actor5)
+        if exist:
+            entry=mp.get(actors, actor5)
+            actor=me.getValue(entry)
+        else:
+            actor=newActor(actor5)
+            mp.put(actors, actor5, actor)
+        lt.addLast(actor['movies'], movie2)
+        avg_at=actor['vote_avg']
+        avg_mv=movie1['vote_average']
+        if avg_at == None:
+            actor['vote_avg']=float(avg_mv)
+        else:
+            actor['vote_avg']= round(((avg_at+ float(avg_mv))/2),2)
 
 def addGenre(movie, catalog):
     """
     Agrega informacion de un genero en el mapa de generos.
     """
     genres=catalog['genres']
-    genre_name=movie['genres']
-    exist=mp.contains(genres, genre_name)
-    if exist:
-        entry=mp.get(genres, genre_name)
-        genre=me.getValue(entry)
-    else:
-        genre=newComopanies(genre_name)
-        mp.put(genres, genre_name, genre)
-    lt.addLast(genre['movies'], movie)
-    avg_gn=genre['vote_avg']
-    avg_mv=movie['vote_average']
-    if avg_gn == None:
-        genre['vote_avg']=float(avg_mv)
-    else:
-        genre['vote_avg']= round(((avg_gn+ float(avg_mv))/2),2)
+    genre_list=movie['genres'].split('|')
+    for genre_name in genre_list:
+        exist=mp.contains(genres, genre_name)
+        if exist:
+            entry=mp.get(genres, genre_name)
+            genre=me.getValue(entry)
+        else:
+            genre=newGenre(genre_name)
+            mp.put(genres, genre_name, genre)
+        lt.addLast(genre['movies'], movie)
+        avg_gn=genre['vote_avg']
+        avg_mv=movie['vote_average']
+        if avg_gn == None:
+            genre['vote_avg']=float(avg_mv)
+        else:
+            genre['vote_avg']= round(((avg_gn+ float(avg_mv))/2),2)
 
 def addCountry(movie, catalog):
     """
@@ -259,7 +347,7 @@ def addCountry(movie, catalog):
         entry=mp.get(countries, country_name)
         country=me.getValue(entry)
     else:
-        country=newComopanies(country_name)
+        country=newCountry(country_name)
         mp.put(countries, country_name, country)
     lt.addLast(country['movies'], movie)
 
@@ -270,18 +358,46 @@ def addCountry(movie, catalog):
     else:
         country['vote_avg']= round(((avg_ct+ float(avg_mv))/2),2)
 
+#______________________________________________________
+# Ignorar
+#______________________________________________________
+def addID(movie, catalog, info):
+    """
+    Agraga informacion al mapa ID deacuerdo a la info.
+    """
+    IDs=catalog['ID']
+    ID=movie['id']
+    exist=mp.contains(IDs, ID)
+    if info==1:
+        if exist:
+            entry=mp.get(IDs, ID)
+            ID_info=me.getValue(entry)
+        else:
+            ID_info=newID(ID)
+            mp.put(IDs, ID, ID_info)
+        lt.addLast(ID_info['casting'], movie)
+    elif info ==2:
+        if exist:
+            entry=mp.get(IDs, ID)
+            ID_info=me.getValue(entry)
+        else:
+            ID_info=newID(ID)
+            mp.put(IDs, ID, ID_info)
+        lt.addLast(ID_info['casting'], movie)
+        avg_ID=ID_info['vote_avg']
+        avg_mv=movie['vote_average']
+        if avg_ID == None:
+            ID_info['vote_avg']=float(avg_mv)
+        else:
+            ID_info['vote_avg']= round(((avg_ID+ float(avg_mv))/2),2)
+
+#______________________________________________________
+# ignorar
+#______________________________________________________
 
 #______________________________________________________
 # Funciones de consulta
 #______________________________________________________
-
-def getElementCriterias(criteria, lst):
-    """
-    Busca los elementos de una lista de acuerdo a un criterio.
-    """
-    iterator=it.newIterator(lst)
-    while it.hasNext(iterator):
-        movie=it.next(iterator)
 
 def getFirstLastMovies(catalog):
     """
@@ -304,6 +420,53 @@ def countBy(criteria, lst):
         if value not in names:
             number+=1
             names.append(value)
+    return number
+
+def countGenres(lst):
+    """
+    cuenta la cantidad de elementos por un crterio.
+    """
+    number=0
+    names=[]
+    iterator=it.newIterator(lst)
+    while it.hasNext(iterator):
+        movie=it.next(iterator)
+        genres_list=movie['genres'].split('|')
+        for genre in genres_list:
+            if genre not in names:
+                number+=1
+                names.append(genre)
+    return number
+
+def countActors(lst):
+    """
+    Cuenta los actores de la lista.
+    """
+    names=[]
+    number=0
+    iterator=it.newIterator(lst)
+    while it.hasNext(iterator):
+        movie=it.next(iterator)
+        actor1=movie['actor1_name']
+        actor2=movie['actor2_name']
+        actor3=movie['actor3_name']
+        actor4=movie['actor4_name']
+        actor5=movie['actor5_name']
+        if actor1 not in names:
+            number+=1
+            names.append(actor1)
+        if actor2 not in names:
+            number+=1
+            names.append(actor2)
+        if actor3 not in names:
+            number+=1
+            names.append(actor3)
+        if actor4 not in names:
+            number+=1
+            names.append(actor4)
+        if actor5 not in names:
+            number+=1
+            names.append(actor5)
     return number
 
 def getElementCriteria(catalog, criteria, key):
