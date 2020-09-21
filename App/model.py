@@ -531,7 +531,7 @@ def getActor(catalog, actor):
             if director in directors:
                 directors[director]+=1
             else:
-                director[director]=1
+                directors[director]=1
         while it.hasNext(iterator2):
             movie=it.next(iterator2)
             title=movie['title']

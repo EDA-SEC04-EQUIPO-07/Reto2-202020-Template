@@ -109,7 +109,7 @@ def menu():
         #opcion4
         elif inputs == '4':
             actor=input('Ingrese el nombre del actor:\n')
-            print(ct.getActor(catalog, actor))
+            (movies, size, avg, max_director)=ct.getActor(catalog, actor)
         #opcion5
         elif inputs == '5':
             print('None')
