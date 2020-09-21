@@ -156,10 +156,6 @@ def newCountry(country_name):
     country['movies']=lt.newList(datastructure='SINGLE_LINKED')
     return country
 
-#______________________________________________________
-# ignorar
-#______________________________________________________
-
 def newID(ID):
     """
     Crea un nuevo elemento de ID.
@@ -167,7 +163,6 @@ def newID(ID):
     elemnt={'ID':None, 'details':None, 'casting':None, 'vote_avg':None}
     elemnt['ID']=ID
     return elemnt
-
 #______________________________________________________
 # ignorar
 #______________________________________________________
@@ -366,9 +361,6 @@ def addCountry(movie, catalog):
     else:
         country['vote_avg']=round(((avg_ct+ float(avg_mv))/2),2)
 
-#______________________________________________________
-# Ignorar
-#______________________________________________________
 def addID(movie, catalog, info):
     """
     Agraga informacion al mapa ID deacuerdo a la info.
@@ -399,9 +391,6 @@ def addID(movie, catalog, info):
         else:
             ID_info['vote_avg']= round(((avg_ID+ float(avg_mv))/2),2)
 
-#______________________________________________________
-# ignorar
-#______________________________________________________
 
 #______________________________________________________
 # Funciones de consulta

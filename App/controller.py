@@ -252,8 +252,5 @@ def cmpfunctionID(element1, entry):
     else:
         return -1
 
-# ___________________________________________________
-#  Funciones generales implementadas
-# ___________________________________________________
 
 
