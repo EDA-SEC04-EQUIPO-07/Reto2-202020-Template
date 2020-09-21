@@ -99,7 +99,12 @@ def menu():
             print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\"')
         #opcion3
         elif inputs == '3':
-            print('None')
+            director=input('Ingrese el nombre del director:\n')
+            (movies, size, avg)=ct.getDirector(catalog, director)
+            print('El director \"', director,'\" tiene un total de peliculas: ', str(size))
+            print('Las peliculas son: ')
+            printlist(movies)
+            print('Sus peliculas tienen un voto promedio de: \"', str(avg), '\"')
         
         #opcion4
         elif inputs == '4':
