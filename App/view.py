@@ -88,7 +88,6 @@ def menu():
         #opcion2
         elif inputs =='2':
             company=input('Ingrese el nombre de la productora de cine:\n')
-            t1_start=process_time()
             answer =ct.getCompany(catalog, company)
             if answer != None:
                 (movies, avg, size)=ct.getCompany(catalog, company)
@@ -96,14 +95,11 @@ def menu():
                 print('\nLas peliculas son:\n')
                 printlist(movies)
                 print('\nSus peliculas tienen un voto promedio de: \"', str(avg), '\".\n')
-                t1_stop= process_time()
-                print('El tiempo de ejecucion: ', t1_stop-t1_start,'segundos')
             else:
                 print('\nLlave no es valida\n')
         #opcion3
         elif inputs == '3':
             director=input('Ingrese el nombre del director:\n')
-            t1_start=process_time()
             answer=ct.getDirector(catalog, director)
             if answer != None:
                 (movies, size, avg)=ct.getDirector(catalog, director)
@@ -111,14 +107,11 @@ def menu():
                 print('\nLas peliculas son:\n')
                 printlist(movies)
                 print('\nSus peliculas tienen un voto promedio de: \"', str(avg), '\".\n')
-                t1_stop= process_time()
-                print('El tiempo de ejecucion: ', t1_stop-t1_start,'segundos')
             else:
                 print('\nLlave no es valida\n')
         #opcion4
         elif inputs == '4':
             actor=input('Ingrese el nombre del actor:\n')
-            t1_start=process_time()
             answer=ct.getActor(catalog, actor)
             if answer != None:
                 (movies, size, avg, max_director )=ct.getActor(catalog, actor)
@@ -127,14 +120,11 @@ def menu():
                 printlist(movies)
                 print('\nSus peliculas tienen un voto promedio de: \"', str(avg), '\"')
                 print('\nEl director con el que mas colaboro es: ' , (max_director), '\n')
-                t1_stop= process_time()
-                print('El tiempo de ejecucion: ', t1_stop-t1_start,'segundos')
             else:
                 print('\nLlave no es valida\n')
         #opcion5
         elif inputs == '5':
             genre=input('Ingrese el genero de interes:\n')
-            t1_start=process_time()
             answer=ct.getGenre(catalog, genre)
             if answer != None:
                 (movies,avg,size)=answer
@@ -142,8 +132,6 @@ def menu():
                 printlist(movies)
                 print('\nLa votacion promedio de las peliculas fue: \"', str(avg), '\".\n')
                 print('El genero: \"', genre,'\"cuenta con un total de: ', size, 'peliculas.\n')
-                t1_stop= process_time()
-                print('El tiempo de ejecucion: ', t1_stop-t1_start,'segundos')
             else:
                 print('\nLa llave no es valida\n')
         #opcion 6
@@ -158,16 +146,12 @@ def menu():
                 printlist(movies)
             else:
                 print('\nLlave no es valida\n')  
-        #opcion7
-        elif inputs == '7':
-            print('None')
-        #opcion salida
+
         elif inputs == '0':
             sys.exit(0)
         
         #opcion no valida
         else:
             print('La opcion: \"', inputs,'\" no es correcta.\n')
-    sys.exit(0)
 
 menu()

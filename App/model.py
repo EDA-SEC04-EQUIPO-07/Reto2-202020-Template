@@ -150,9 +150,10 @@ def newCountry(country_name):
     """
     Crea un nuevo elemento de paises.
     """
-    country={'name':None, 'movies':None, 'vote_avg': None}
+    country={'name':None, 'movies':None, 'casting':None,'vote_avg': None}
     country['name']=country_name
     country['movies']=lt.newList(datastructure='SINGLE_LINKED')
+    country['casting']=lt.newList(datastructure='SINGLE_LINKED')
     return country
 
 def newID(ID):
@@ -335,12 +336,12 @@ def addGenre(movie, catalog):
         else:
             genre['vote_count']=round(((count_gn+ float(count_mv))/2),2)
 
-def addCountry(movie, catalog):
+def addCountry(movie2, movie1, catalog):
     """
     Agrega informacion de un país en el mapa de un país.
     """
     countries=catalog['production_countries']
-    country_name=movie['production_countries']
+    country_name=movie1['production_countries']
     exist=mp.contains(countries, country_name)
     if exist:
         entry=mp.get(countries, country_name)
@@ -348,10 +349,10 @@ def addCountry(movie, catalog):
     else:
         country=newCountry(country_name)
         mp.put(countries, country_name, country)
-    lt.addLast(country['movies'], movie)
-
+    lt.addLast(country['movies'], movie1)
+    lt.addLast(country['casting'], movie2)
     avg_ct=country['vote_avg']
-    avg_mv=movie['vote_average']
+    avg_mv=movie1['vote_average']
     if avg_ct == None:
         country['vote_avg']=float(avg_mv)
     else:
@@ -559,28 +560,30 @@ def getGenre(catalog, genre):
         return (lst, avg, size)
     except:
         return None
+
 def getCountry(catalog, country):
     """
     Retorna el lista de paises con su respectiva información.
     """ 
     value=getElementCriteria(catalog, 'production_countries', country)
     try:
-        info= value["movies"]
-        lst= lt.newlist(datastructure='SINGLE_LINKED')
-        iterator= it.newIterator(info)
-        while it.hasNext(iterator):
-            data=[]
-            movie=it.next(iterator)
-            title=movie["title"]
-            date= movie["release_date"]
-            director= movie["director_name"]
-            data+= title
-            data+=date
-            data+= director
+        info= value['movies']
+        casting=value['casting']
+        lst=lt.newList(datastructure='SINGLE_LINKED')
+        iterator1= it.newIterator(info)
+        iterator2= it.newIterator(casting)
+        while it.hasNext(iterator1):
+            movie1=it.next(iterator1)
+            movie2=it.next(iterator2)
+            title=movie1["title"]
+            date= movie1["release_date"]
+            director= movie2["director_name"]
+            data=(title, date, director)
             lt.addLast(lst, data)
-        return (lst)
+        return lst
     except:
         return None
+
 #______________________________________________________
 # Funciones de Comparacion
 #______________________________________________________
