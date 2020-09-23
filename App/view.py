@@ -57,6 +57,15 @@ def printlist(lst):
     while it.hasNext(iterator):
         print(it.next(iterator))
 
+def printlist6(lst):
+    """
+    Imprime los elemntos de una lista.
+    """
+    iterator=it.newIterator(lst)
+    while it.hasNext(iterator):
+        (title, date, director)=it.next(iterator)
+        print('La pelicula: \"', title,'\" tiene fecha de salida: \"', date, '\" y fue dirigida por: \"', director, '\".')
+
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
@@ -143,7 +152,7 @@ def menu():
                 print ("el país seleccionado es:")
                 print (country)
                 print ("las peliculas y su respectiva información")
-                printlist(movies)
+                printlist6(movies)
             else:
                 print('\nLlave no es valida\n')  
 
