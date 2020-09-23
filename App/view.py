@@ -25,6 +25,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import arraylist
 from DISClib.DataStructures import listiterator as it
+from time import process_time
 import controller as ct
 assert config
 
@@ -74,24 +75,20 @@ def menu():
     """
     Inicia el menu del programa.
     """
-    lst1=ct.initlist()
-    lst2=ct.initlist()
-    catalog=None
+    catalog=ct.initCatalog()
     while True:
         printMenu()
         inputs = input('Seleccione una opción para continuar\n')
         #opcion1
         if inputs =='1':
             print('caragndo datos...\n')
-            lst1=ct.loadlist(file_cast, lst1)
-            lst2=ct.loadlist(file_details, lst2)
-            catalog=ct.initCatalog(lst1, lst2)
             ct.addElementsmapsDetails(catalog, file_details, file_cast)
             print('La longitud de los datos es:\"',ct.sizeList(catalog['Data']['details']) ,'\" elementos cargados.\n')
 
         #opcion2
         elif inputs =='2':
             company=input('Ingrese el nombre de la productora de cine:\n')
+            t1_start=process_time()
             answer =ct.getCompany(catalog, company)
             if answer != None:
                 (movies, avg, size)=ct.getCompany(catalog, company)
@@ -99,11 +96,14 @@ def menu():
                 print('\nLas peliculas son:\n')
                 printlist(movies)
                 print('\nSus peliculas tienen un voto promedio de: \"', str(avg), '\".\n')
+                t1_stop= process_time()
+                print('El tiempo de ejecucion: ', t1_stop-t1_start,'segundos')
             else:
                 print('\nLlave no es valida\n')
         #opcion3
         elif inputs == '3':
             director=input('Ingrese el nombre del director:\n')
+            t1_start=process_time()
             answer=ct.getDirector(catalog, director)
             if answer != None:
                 (movies, size, avg)=ct.getDirector(catalog, director)
@@ -111,11 +111,14 @@ def menu():
                 print('\nLas peliculas son:\n')
                 printlist(movies)
                 print('\nSus peliculas tienen un voto promedio de: \"', str(avg), '\".\n')
+                t1_stop= process_time()
+                print('El tiempo de ejecucion: ', t1_stop-t1_start,'segundos')
             else:
                 print('\nLlave no es valida\n')
         #opcion4
         elif inputs == '4':
             actor=input('Ingrese el nombre del actor:\n')
+            t1_start=process_time()
             answer=ct.getActor(catalog, actor)
             if answer != None:
                 (movies, size, avg, max_director )=ct.getActor(catalog, actor)
@@ -124,11 +127,14 @@ def menu():
                 printlist(movies)
                 print('\nSus peliculas tienen un voto promedio de: \"', str(avg), '\"')
                 print('\nEl director con el que mas colaboro es: ' , (max_director), '\n')
+                t1_stop= process_time()
+                print('El tiempo de ejecucion: ', t1_stop-t1_start,'segundos')
             else:
                 print('\nLlave no es valida\n')
         #opcion5
         elif inputs == '5':
             genre=input('Ingrese el genero de interes:\n')
+            t1_start=process_time()
             answer=ct.getGenre(catalog, genre)
             if answer != None:
                 (movies,avg,size)=answer
@@ -136,6 +142,8 @@ def menu():
                 printlist(movies)
                 print('\nLa votacion promedio de las peliculas fue: \"', str(avg), '\".\n')
                 print('El genero: \"', genre,'\"cuenta con un total de: ', size, 'peliculas.\n')
+                t1_stop= process_time()
+                print('El tiempo de ejecucion: ', t1_stop-t1_start,'segundos')
             else:
                 print('\nLa llave no es valida\n')
         #opcion6

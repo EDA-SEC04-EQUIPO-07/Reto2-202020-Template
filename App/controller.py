@@ -58,12 +58,12 @@ def loadlist(file, lst):
 # Inicializacion del Catalogo
 #______________________________________________________
 
-def initCatalog(lst1,lst2):#no necesita revision
+def initCatalog():#no necesita revision
     """
     Llama la funcion de inicializacion del catalogo del modelo.
     """
     # catalog es utilizado para interactuar con el modelo
-    catalog = md.newCatalog(lst1, lst2)
+    catalog = md.newCatalog()
     return catalog
 
 # ___________________________________________________
@@ -78,10 +78,12 @@ def loadDataCast(catalog, file):
     Carga los datos de las peliculas en el mapa.
     """
     file= config.file_dir + file
-    with open(file, encoding="utf-8") as movies:
-        data_row=csv.DictReader(movies)
-        for movie in data_row:
-            md.addMovie(catalog, movie, info=1)
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    input_file=csv.DictReader(open(file, encoding="utf-8"), dialect=dialect)
+    for movie in input_file:
+        md.addMovie(catalog, movie, info=2)
+
 
 def loadDataDetails(catalog, file):
     """
@@ -107,12 +109,14 @@ def addElementsmapsDetails(catalog, file1, file2):
     dialect.delimiter=";"
     input_file2=csv.DictReader(open(file2, encoding="utf-8"), dialect=dialect)
     for movie1 in input_file1:
+        lt.addLast(catalog['Data']['details'], movie1)
         md.addCompany(movie1, catalog)
         md.addGenre(movie1, catalog)
         md.addCountry(movie1, catalog)
     iterator=it.newIterator(catalog['Data']['details'])
     for movie2 in input_file2:
         movie1=it.next(iterator)
+        lt.addLast(catalog['Data']['casting'], movie2)
         md.addDirector(movie2, movie1, catalog)
         md.addActor(movie2, movie1, catalog)
 

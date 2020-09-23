@@ -70,7 +70,7 @@ def loadCSVFile (file, lst):
 # API del TAD Catalogo de peliculas
 #______________________________________________________
 
-def newCatalog(lst1, lst2):
+def newCatalog():
     """
     Crea un nuevo catalogo.
     """
@@ -78,31 +78,31 @@ def newCatalog(lst1, lst2):
     catalog={ 'Data': Data, 'production_companies': None, 'IDs':None,
     'director_name': None, 'actor_name': None,'genres':None, 'production_countries': None}
 
-    catalog['Data']['casting']=lst1
-    catalog['Data']['details']=lst2
+    catalog['Data']['casting']=lt.newList(datastructure='ARRAY_LIST')
+    catalog['Data']['details']=lt.newList(datastructure='ARRAY_LIST')
 
 
     #catalog['IDs']=mp.newMap(numelements=(lt.size(catalog['Data']['details'])),
                                         #maptype='CHAINIG',
                                         #loadfactor=1,
                                         #comparefunction=ct.cmpfunctionID)
-    catalog['production_companies']=mp.newMap(numelements=(countBy('production_companies',catalog['Data']['details'])),
+    catalog['production_companies']=mp.newMap(numelements=350000,
                                         maptype='PROBING',
                                         loadfactor=0.4, 
                                         comparefunction=cmpfunctionCompanies)
-    catalog['director_name']=mp.newMap(numelements=(countBy('director_name',catalog['Data']['casting'])), 
+    catalog['director_name']=mp.newMap(numelements=350000, 
                                         maptype='PROBING', 
                                         loadfactor=0.4,
                                         comparefunction= cmpfunctionDirectors)
-    catalog['actor_name']=mp.newMap(numelements=(countActors(catalog['Data']['casting'])), 
+    catalog['actor_name']=mp.newMap(numelements=350000, 
                                         maptype='PROBING', 
                                         loadfactor=0.4,
                                         comparefunction= cmpfunctionActor)
-    catalog['genres']=mp.newMap(numelements=(countGenres(catalog['Data']['details'])), 
+    catalog['genres']=mp.newMap(numelements=350000, 
                                         maptype='PROBING', 
                                         loadfactor=0.4,
                                         comparefunction= cmpfunctionGenres)
-    catalog['production_countries']=mp.newMap(numelements=(countBy('production_countries',catalog['Data']['details'])), 
+    catalog['production_countries']=mp.newMap(numelements=350000, 
                                         maptype='PROBING', 
                                         loadfactor=0.4,
                                         comparefunction= cmpfunctionCountry)
