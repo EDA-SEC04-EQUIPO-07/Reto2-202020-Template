@@ -559,9 +559,28 @@ def getGenre(catalog, genre):
         return (lst, avg, size)
     except:
         return None
-    
-    
-
+def getCountry(catalog, country):
+    """
+    Retorna el lista de paises con su respectiva información.
+    """ 
+    value=getElementCriteria(catalog, 'production_countries', country)
+    try:
+        info= value["movies"]
+        lst= lt.newlist(datastructure='SINGLE_LINKED')
+        iterator= it.newIterator(info)
+        while it.hasNext(iterator):
+            data=[]
+            movie=it.next(iterator)
+            title=movie["title"]
+            date= movie["release_date"]
+            director= movie["director_name"]
+            data+= title
+            data+=date
+            data+= director
+            lt.addLast(lst, data)
+        return (lst)
+    except:
+        return None
 #______________________________________________________
 # Funciones de Comparacion
 #______________________________________________________

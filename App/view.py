@@ -146,8 +146,20 @@ def menu():
                 print('El tiempo de ejecucion: ', t1_stop-t1_start,'segundos')
             else:
                 print('\nLa llave no es valida\n')
-        #opcion6
+        #opcion 6
         elif inputs == '6':
+            country=input("Ingrese el país de interés:\n")
+            country_list= ct.getCountry(catalog,country)
+            if country_list != None:
+                (movies)=country_list
+                print ("el país seleccionado es:")
+                print (country)
+                print ("las peliculas y su respectiva información")
+                printlist(movies)
+            else:
+                print('\nLlave no es valida\n')  
+        #opcion7
+        elif inputs == '7':
             print('None')
         #opcion salida
         elif inputs == '0':

@@ -153,5 +153,10 @@ def getGenre(catalog, genre):
     Retorna un genero con su informacion.
     """
     return md.getGenre(catalog, genre)
+def getCountry(catalog, country):
+    """
+    Retorna un genero con su informacion.
+    """
+    return md.getCountry(catalog, country)
 
 
